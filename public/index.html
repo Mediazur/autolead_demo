@@ -2,7 +2,6 @@
 <html lang="fr">
 <head>
 <script>window.AUTOLEAD_API_URL = window.location.origin + "/api";</script>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AutoLead — Portail partenaire</title>
@@ -1766,7 +1765,12 @@ let activeTab='dashboard';
 let histoOpen=false;
 let leadCounter=1012;
 let campaignCounter=1014;
-let orderState = {
+// Fonction plutôt qu'un simple objet littéral : sert à la fois à
+// l'initialisation ET à repartir d'un formulaire vierge quand on revient sur
+// l'onglet « Commander une campagne » (voir switchTab) — sinon la commande
+// précédente (concessions, ciblage, étape en cours) restait affichée.
+function defaultOrderState(){
+  return {
   mechanic:'leads', centerIds:[], type:'collecte', mode:'leads', leadsVal:40, budgetVal:1000,
   contactsVal:1000,
   splitByCenter:false, splitLeads:{}, splitBudget:{},
@@ -1779,7 +1783,9 @@ let orderState = {
   notorieteAutoVolume: true, // le volume suit l'audience estimée par le ciblage, tant qu'on n'a pas ajusté le curseur à la main
   email: {senderName:'', senderEmail:'', subject:'', message:'', sendDate:null, sendTime:'09:00', wantsCrea:false, htmlFile:null},
   activation: {meta:false, google:false, tiktok:false, accounts:{meta:'', google:'', tiktok:''}},
-};
+  };
+}
+let orderState = defaultOrderState();
 
 function currentPro(){ return document.getElementById('pro-select').value; }
 function proObj(){ return PROS.find(p=>p.id===currentPro()); }
@@ -1841,6 +1847,10 @@ function onProChange(){
    NAVIGATION
    ========================================================= */
 function switchTab(tab){
+  // Repartir d'un formulaire vierge quand on arrive sur "Commander une
+  // campagne" depuis un autre onglet : sinon les concessions/ciblage/étape
+  // d'une commande précédente (ou déjà lancée) restaient affichés.
+  if(tab==='order' && activeTab!==tab) orderState = defaultOrderState();
   activeTab = tab;
   document.querySelectorAll('.nav-btn, .tabbar button, .crm-link').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
   ['dashboard','leads','rdv','order','campaigns','billing','centers','support'].forEach(t=>{
@@ -2678,7 +2688,7 @@ function renderOrder(){
         <div class="summary-total"><span class="lbl">Budget total estimé</span><span class="amt" id="summary-total-amt">${totalCost} €</span></div>
         <div class="summary-note" id="activation-floor-note" style="color:var(--amber-deep); display:${activationFeeIsFloored()?'block':'none'};">⚠ Minimum de facturation de ${accountPrices(pro).activationMin} € appliqué sur la partie activation d'audience — le montant ne bougera pas tant que l'audience ciblée reste sous ce seuil.</div>
         <button class="mini-btn primary-amber" id="launch-btn" onclick="requestLaunchConfirmation()">Lancer la campagne</button>
-        <div class="summary-note">${isLeadsMech ? 'Estimation indicative — le montant réel dépendra du nombre de leads effectivement collectés dans votre zone.' : (audienceCache.isReal && audienceCache.key===audienceCacheKey(selectedCenters,orderState.targeting) ? 'Audience calculée en temps réel sur votre base de contacts géolocalisés.' : 'Estimation indicative en cours d’affinage — le chiffre exact arrive dans un instant.')}</div>
+        <div class="summary-note">${isLeadsMech ? 'Estimation indicative — le montant réel dépendra du nombre de leads effectivement collectés dans votre zone.' : ((audienceCacheMap.get(audienceCacheKey(selectedCenters,orderState.targeting))||{}).isReal ? 'Audience calculée en temps réel sur votre base de contacts géolocalisés.' : 'Estimation indicative en cours d’affinage — le chiffre exact arrive dans un instant.')}</div>
       </div>
     </div>
   `;
@@ -3744,7 +3754,14 @@ function computeTargetingTier(pro){
 // wizard, on ne peut pas attendre la réponse serveur ici : on renvoie tout de
 // suite l'estimation indicative, on lance la vraie requête en arrière-plan,
 // et on rafraîchit l'écran automatiquement quand le vrai chiffre arrive.
-let audienceCache = { key:null, value:null, loading:false };
+// Une entrée par combinaison (centres + ciblage) plutôt qu'un cache unique
+// partagé : la liste de segments (chacun avec son propre ciblage) appelle
+// estimateAudience() plusieurs fois par rendu, une par carte. Avec un cache
+// unique, chaque carte écrasait l'état de la précédente, provoquant une
+// boucle de re-rendus infinie (chaque résolution invalidait la précédente,
+// qui relançait un fetch, qui re-déclenchait un rendu...). Une Map par clé
+// isole chaque combinaison : elle ne fait sa requête réseau qu'une fois.
+let audienceCacheMap = new Map();
 function audienceCacheKey(selectedCenters, t){
   return JSON.stringify({
     centers: selectedCenters.map(c=>c.id).sort(), geoMode: t.geoMode, address: t.customAddress, geoRegions: (t.geoRegions||[]).slice().sort(),
@@ -3761,17 +3778,22 @@ function estimateAudience(selectedCenters, targetingOverride){
   if(!canUseRealCount) return estimateAudienceFormula(selectedCenters, targetingOverride);
 
   const key = audienceCacheKey(selectedCenters, t);
-  if(audienceCache.key===key && audienceCache.value!=null) return audienceCache.value;
-  if(!(audienceCache.loading && audienceCache.key===key)){
-    audienceCache.loading = true; audienceCache.key = key;
+  let entry = audienceCacheMap.get(key);
+  if(entry && entry.value!=null) return entry.value;
+  if(!entry){
+    entry = { value:null, loading:false, isReal:false };
+    audienceCacheMap.set(key, entry);
+  }
+  if(!entry.loading){
+    entry.loading = true;
     apiFetch('/audience/estimate', {method:'POST', body: JSON.stringify({
       centerIds: selectedCenters.map(c=>c.id), targeting: t, customAddress: t.customAddress,
     })}).then(r=>{
-      audienceCache.loading = false;
-      audienceCache.value = (r.audience!=null) ? r.audience : estimateAudienceFormula(selectedCenters, targetingOverride);
-      audienceCache.isReal = r.audience!=null;
-      if(audienceCache.key===key) renderOrder();
-    }).catch(()=>{ audienceCache.loading = false; });
+      entry.loading = false;
+      entry.value = (r.audience!=null) ? r.audience : estimateAudienceFormula(selectedCenters, targetingOverride);
+      entry.isReal = r.audience!=null;
+      renderOrder();
+    }).catch(()=>{ entry.loading = false; });
   }
   return estimateAudienceFormula(selectedCenters, targetingOverride);
 }
