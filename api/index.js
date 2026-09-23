@@ -12,11 +12,7 @@ var require_pool = __commonJS({
   "src/db/pool.js"(exports2, module2) {
     var { Pool } = require("pg");
     var pool = new Pool({
-      connectionString: process.env.DATABASE_URL,
-      ssl: { rejectUnauthorized: false },
-      // Neon (serverless) coupe les connexions inactives assez vite ; on garde
-      // un pool volontairement petit, adapté à l'exécution en fonction serverless.
-      max: 3
+      connectionString: process.env.DATABASE_URL
     });
     pool.on("error", (err) => {
       console.error("Erreur inattendue sur le pool PostgreSQL :", err);
@@ -705,6 +701,172 @@ var require_audience = __commonJS({
   }
 });
 
+// src/services/spotHit.js
+var require_spotHit = __commonJS({
+  "src/services/spotHit.js"(exports2, module2) {
+    var BASE_URL = process.env.SPOTHIT_BASE_URL || "https://www.spot-hit.fr";
+    function isLive() {
+      return process.env.SPOTHIT_MODE === "live";
+    }
+    function getApiKey() {
+      const key = process.env.SPOTHIT_API_KEY;
+      if (!key) {
+        throw new Error(
+          "SPOTHIT_API_KEY n'est pas configur\xE9e. Ajoutez-la dans .env (m\xEAme en mode simulation, elle est requise pour valider la configuration avant de passer en mode live)."
+        );
+      }
+      return key;
+    }
+    function toFormBody(obj) {
+      const params = new URLSearchParams();
+      function add(key, value) {
+        if (value === void 0 || value === null) return;
+        if (Array.isArray(value)) {
+          value.forEach((v, i) => add(`${key}[${i}]`, v));
+        } else if (typeof value === "object") {
+          Object.entries(value).forEach(([k, v]) => add(`${key}[${k}]`, v));
+        } else {
+          params.append(key, value);
+        }
+      }
+      Object.entries(obj).forEach(([k, v]) => add(k, v));
+      return params;
+    }
+    async function callApi(path, params, method = "POST") {
+      const key = getApiKey();
+      const body = { key, ...params };
+      if (!isLive()) {
+        console.log(`[spotHit:simulate] ${method} ${path} ->`, JSON.stringify({ ...body, key: "***" }));
+        return { simulated: true };
+      }
+      const url = new URL(BASE_URL + path);
+      let response;
+      if (method === "GET") {
+        Object.entries(body).forEach(([k, v]) => {
+          if (v === void 0 || v === null) return;
+          url.searchParams.set(k, Array.isArray(v) || typeof v === "object" ? JSON.stringify(v) : v);
+        });
+        response = await fetch(url.toString(), { method: "GET" });
+      } else {
+        response = await fetch(url.toString(), {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: toFormBody(body).toString()
+        });
+      }
+      const text = await response.text();
+      let json;
+      try {
+        json = JSON.parse(text);
+      } catch (e) {
+        throw new Error(`R\xE9ponse Spot-Hit non JSON (HTTP ${response.status}) : ${text.slice(0, 300)}`);
+      }
+      return json;
+    }
+    var ERROR_MESSAGES = {
+      1: "Type de message non sp\xE9cifi\xE9 ou incorrect",
+      2: "Le message est vide",
+      3: "Le message contient plus de 160 caract\xE8res (70 en unicode)",
+      4: "Aucun destinataire valide n'est renseign\xE9",
+      5: "Num\xE9ro interdit",
+      6: "Num\xE9ro de destinataire invalide",
+      7: "Votre compte Spot-Hit n'a pas de formule d\xE9finie",
+      8: "Exp\xE9diteur invalide",
+      9: "Erreur syst\xE8me Spot-Hit \u2014 contactez leur support",
+      10: "Cr\xE9dits Spot-Hit insuffisants pour effectuer cet envoi",
+      11: "Envoi d\xE9sactiv\xE9 (compte de d\xE9monstration Spot-Hit)",
+      12: "Compte Spot-Hit suspendu",
+      13: "Limite d'envoi atteinte",
+      14: "Limite d'envoi atteinte",
+      15: "Limite d'envoi atteinte",
+      17: "L'exp\xE9diteur n'est pas autoris\xE9",
+      21: "Token invalide \u2014 contactez Spot-Hit",
+      24: "Mention \xAB STOP au 36200 \xBB manquante dans le message (obligation CNIL)",
+      30: "Cl\xE9 API Spot-Hit non reconnue",
+      38: "Mention STOP manquante dans le message",
+      62: "Limite d'envoi Spot-Hit atteinte",
+      63: "Limite de requ\xEAtes API Spot-Hit d\xE9pass\xE9e",
+      71: "Envois Spot-Hit temporairement indisponibles (incident en cours)",
+      100: "IP non autoris\xE9e sur le compte Spot-Hit"
+    };
+    function describeErrors(codes) {
+      const list = Array.isArray(codes) ? codes : codes != null ? [codes] : [];
+      if (!list.length) return "erreur inconnue";
+      return list.map((c) => `${c} (${ERROR_MESSAGES[c] || "voir la doc Spot-Hit"})`).join(", ");
+    }
+    var STATUT_LABELS = {
+      0: "en_attente",
+      1: "livre",
+      // "Envoyé et bien reçu" côté /dlr, "Livré" côté doc suivi — même code
+      2: "envoye_non_recu",
+      3: "en_cours",
+      4: "echec",
+      5: "expire"
+    };
+    async function sendSms({ destinataires, message, expediteur, date, nom }) {
+      if (!message || !message.trim()) throw new Error("Message SMS vide.");
+      if (!Array.isArray(destinataires) || !destinataires.length) throw new Error("Aucun destinataire fourni.");
+      const json = await callApi("/api/envoyer/sms", {
+        destinataires,
+        message,
+        expediteur: expediteur || void 0,
+        date: date || void 0,
+        nom: nom ? String(nom).slice(0, 50) : void 0
+      }, "POST");
+      if (json.simulated) {
+        return { ok: true, simulated: true, spotHitId: `sim-${Date.now()}`, recipientCount: destinataires.length };
+      }
+      if (!json.resultat) {
+        throw new Error(`Envoi Spot-Hit refus\xE9 : ${describeErrors(json.erreurs)}`);
+      }
+      return { ok: true, simulated: false, spotHitId: String(json.id), recipientCount: destinataires.length };
+    }
+    async function getDlr({ id, produit = "sms" }) {
+      if (!id) throw new Error("id de campagne Spot-Hit requis.");
+      const json = await callApi("/api/dlr", { id, produit }, "GET");
+      if (json.simulated) return { simulated: true, rows: [] };
+      if (json && json.resultat === false) {
+        throw new Error(`Suivi Spot-Hit indisponible : ${describeErrors(json.erreurs)}`);
+      }
+      const rows = Array.isArray(json) ? json : [];
+      return {
+        simulated: false,
+        rows: rows.map((r) => ({
+          numero: r[0],
+          statut: Number(r[1]),
+          statutLabel: STATUT_LABELS[Number(r[1])] || null,
+          dateEmission: r[2],
+          dateMiseAJour: r[3],
+          statutDetaille: r[4],
+          idMessage: r[5],
+          operateur: r[6],
+          nom: r[7]
+        }))
+      };
+    }
+    async function listStops() {
+      const json = await callApi("/api/stops", {}, "GET");
+      if (json.simulated) return { simulated: true, rows: [] };
+      if (json && json.resultat === false) throw new Error(`Erreur Spot-Hit (stops) : ${describeErrors(json.erreurs)}`);
+      const rows = Array.isArray(json) ? json : [];
+      return { simulated: false, rows: rows.map((r) => ({ id: r[0], numero: r[1], dateEnvoi: r[2], sourceId: r[3] })) };
+    }
+    async function listResponses(params = {}) {
+      const json = await callApi("/api/responses", params, "GET");
+      if (json.simulated) return { simulated: true, rows: [] };
+      if (json && json.resultat === false) throw new Error(`Erreur Spot-Hit (responses) : ${describeErrors(json.erreurs)}`);
+      const rows = Array.isArray(json) ? json : [];
+      return { simulated: false, rows: rows.map((r) => ({ id: r[0], numero: r[1], message: r[2], dateEnvoi: r[3], sourceId: r[4] })) };
+    }
+    async function getCredits() {
+      const json = await callApi("/api/credits", {}, "GET");
+      if (json.simulated) return { simulated: true };
+      return { simulated: false, ...json };
+    }
+    module2.exports = { sendSms, getDlr, listStops, listResponses, getCredits, describeErrors, STATUT_LABELS, isLive };
+  }
+});
+
 // src/routes/admin.js
 var require_admin = __commonJS({
   "src/routes/admin.js"(exports2, module2) {
@@ -712,6 +874,7 @@ var require_admin = __commonJS({
     var pool = require_pool();
     var { requireAuth, requireAdmin } = require_auth2();
     var { ALLOWED_COLUMNS } = require_audienceColumns();
+    var spotHit = require_spotHit();
     var router = express2.Router();
     router.use(requireAuth, requireAdmin);
     function mapAccountRow(row, centers) {
@@ -948,7 +1111,9 @@ var require_admin = __commonJS({
         emailResult: row.email_result,
         invoiceDate: row.invoice_date,
         paymentStatus: row.payment_status,
-        paymentDate: row.payment_date
+        paymentDate: row.payment_date,
+        spothitCampaignId: row.spothit_campaign_id,
+        spothitStatus: row.spothit_status
       };
     }
     router.get("/campaigns", async (req, res) => {
@@ -1024,6 +1189,69 @@ var require_admin = __commonJS({
       } catch (err) {
         console.error("Erreur PATCH campaigns/:id/finalize :", err);
         res.status(500).json({ error: "Erreur serveur." });
+      }
+    });
+    router.post("/campaigns/:id/sms/send", async (req, res) => {
+      const { destinataires, message, expediteur, date } = req.body || {};
+      try {
+        const current = await pool.query(
+          `SELECT id, sms_schedule, spothit_campaign_id FROM campaigns WHERE id = $1`,
+          [req.params.id]
+        );
+        if (!current.rows.length) return res.status(404).json({ error: "Campagne introuvable." });
+        const campaign = current.rows[0];
+        if (campaign.spothit_campaign_id) {
+          return res.status(409).json({ error: `Cette campagne a d\xE9j\xE0 \xE9t\xE9 envoy\xE9e via Spot-Hit (id ${campaign.spothit_campaign_id}).` });
+        }
+        const numeros = Array.isArray(destinataires) ? destinataires.map((n) => String(n).trim()).filter(Boolean) : String(destinataires || "").split(/[\n,;]+/).map((s) => s.trim()).filter(Boolean);
+        if (!numeros.length) return res.status(400).json({ error: "Aucun destinataire fourni." });
+        const schedule = campaign.sms_schedule || {};
+        const finalMessage = message || schedule.message;
+        if (!finalMessage) return res.status(400).json({ error: "Message SMS manquant." });
+        const finalSender = expediteur || schedule.sender || void 0;
+        const result = await spotHit.sendSms({ destinataires: numeros, message: finalMessage, expediteur: finalSender, date, nom: campaign.id });
+        await pool.query(
+          `UPDATE campaigns
+       SET spothit_campaign_id = $1, spothit_status = $2, status = 'en_cours',
+           sms_result = jsonb_set(COALESCE(sms_result,'{}'::jsonb), '{sent}', $3::jsonb)
+       WHERE id = $4`,
+          [result.spotHitId, result.simulated ? "simule" : "envoye", JSON.stringify(numeros.length), req.params.id]
+        );
+        res.json({ ok: true, ...result });
+      } catch (err) {
+        console.error("Erreur POST /admin/campaigns/:id/sms/send :", err);
+        res.status(400).json({ error: err.message || "Erreur serveur." });
+      }
+    });
+    router.get("/campaigns/:id/sms/status", async (req, res) => {
+      try {
+        const current = await pool.query(`SELECT spothit_campaign_id FROM campaigns WHERE id = $1`, [req.params.id]);
+        if (!current.rows.length) return res.status(404).json({ error: "Campagne introuvable." });
+        const spotHitId = current.rows[0].spothit_campaign_id;
+        if (!spotHitId) return res.status(400).json({ error: "Cette campagne n'a pas encore \xE9t\xE9 envoy\xE9e via Spot-Hit." });
+        const { rows, simulated } = await spotHit.getDlr({ id: spotHitId, produit: "sms" });
+        if (!simulated) {
+          const delivered = rows.filter((r) => r.statut === 1).length;
+          const failed = rows.filter((r) => r.statut === 4 || r.statut === 5).length;
+          await pool.query(
+            `UPDATE campaigns
+         SET sms_result = COALESCE(sms_result,'{}'::jsonb) || jsonb_build_object('delivered', $1::int, 'failed', $2::int)
+         WHERE id = $3`,
+            [delivered, failed, req.params.id]
+          );
+        }
+        res.json({ ok: true, simulated, rows });
+      } catch (err) {
+        console.error("Erreur GET /admin/campaigns/:id/sms/status :", err);
+        res.status(400).json({ error: err.message || "Erreur serveur." });
+      }
+    });
+    router.get("/spothit/credits", async (req, res) => {
+      try {
+        res.json(await spotHit.getCredits());
+      } catch (err) {
+        console.error("Erreur GET /admin/spothit/credits :", err);
+        res.status(400).json({ error: err.message || "Erreur serveur." });
       }
     });
     function mapFieldMappingRow(r) {
@@ -1231,6 +1459,89 @@ var require_activationPlatforms = __commonJS({
   }
 });
 
+// src/routes/webhooksSpotHit.js
+var require_webhooksSpotHit = __commonJS({
+  "src/routes/webhooksSpotHit.js"(exports2, module2) {
+    var express2 = require("express");
+    var pool = require_pool();
+    var router = express2.Router();
+    function checkSecret(req, res) {
+      const expected = process.env.SPOTHIT_WEBHOOK_SECRET;
+      if (!expected || req.query.secret !== expected) {
+        res.status(403).send("forbidden");
+        return false;
+      }
+      return true;
+    }
+    var STATUT_LABELS = { "0": "en_attente", "1": "livre", "2": "envoye_non_recu", "3": "en_cours", "4": "echec", "5": "expire" };
+    router.get("/accuses", async (req, res) => {
+      if (!checkSecret(req, res)) return;
+      const { numero, statut, nom } = req.query;
+      try {
+        if (nom) {
+          await pool.query(
+            `INSERT INTO sms_events (campaign_id, event_type, numero, statut, raw)
+         SELECT $1, 'accuse', $2, $3, $4::jsonb WHERE EXISTS (SELECT 1 FROM campaigns WHERE id = $1)`,
+            [nom, numero || null, STATUT_LABELS[statut] || statut || null, JSON.stringify(req.query)]
+          );
+          if (statut === "1" || statut === "4" || statut === "5") {
+            const field = statut === "1" ? "delivered" : "failed";
+            await pool.query(
+              `UPDATE campaigns
+           SET sms_result = jsonb_set(
+             COALESCE(sms_result, '{}'::jsonb), ARRAY[$1],
+             (COALESCE((sms_result->>$1)::int, 0) + 1)::text::jsonb
+           )
+           WHERE id = $2`,
+              [field, nom]
+            );
+          }
+        }
+      } catch (err) {
+        console.error("Erreur webhook Spot-Hit /accuses :", err);
+      }
+      res.status(200).send("ok");
+    });
+    router.get("/stops", async (req, res) => {
+      if (!checkSecret(req, res)) return;
+      const { numero, source_id } = req.query;
+      try {
+        await pool.query(
+          `INSERT INTO sms_events (campaign_id, event_type, numero, raw)
+       SELECT $1, 'stop', $2, $3::jsonb WHERE EXISTS (SELECT 1 FROM campaigns WHERE id = $1)`,
+          [source_id || null, numero || null, JSON.stringify(req.query)]
+        );
+        if (source_id) {
+          await pool.query(
+            `UPDATE campaigns
+         SET sms_result = jsonb_set(COALESCE(sms_result, '{}'::jsonb), '{stop}', (COALESCE((sms_result->>'stop')::int, 0) + 1)::text::jsonb)
+         WHERE id = $1`,
+            [source_id]
+          );
+        }
+      } catch (err) {
+        console.error("Erreur webhook Spot-Hit /stops :", err);
+      }
+      res.status(200).send("ok");
+    });
+    router.get("/reponses", async (req, res) => {
+      if (!checkSecret(req, res)) return;
+      const { numero, message, source } = req.query;
+      try {
+        await pool.query(
+          `INSERT INTO sms_events (campaign_id, event_type, numero, message, raw)
+       SELECT $1, 'reponse', $2, $3, $4::jsonb WHERE EXISTS (SELECT 1 FROM campaigns WHERE id = $1)`,
+          [source || null, numero || null, message || null, JSON.stringify(req.query)]
+        );
+      } catch (err) {
+        console.error("Erreur webhook Spot-Hit /reponses :", err);
+      }
+      res.status(200).send("ok");
+    });
+    module2.exports = router;
+  }
+});
+
 // api/index.js
 require("dotenv").config();
 var express = require("express");
@@ -1242,6 +1553,7 @@ var accountsRoutes = require_accounts();
 var audienceRoutes = require_audience();
 var adminRoutes = require_admin();
 var activationPlatformsRoutes = require_activationPlatforms();
+var webhooksSpotHitRoutes = require_webhooksSpotHit();
 var app = express();
 app.use(cors(process.env.ALLOWED_ORIGIN ? { origin: process.env.ALLOWED_ORIGIN.split(",").map((s) => s.trim()) } : {}));
 app.use(express.json({ limit: "8mb" }));
@@ -1253,4 +1565,5 @@ app.use("/api/accounts", accountsRoutes);
 app.use("/api/audience", audienceRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/activation-platforms", activationPlatformsRoutes);
+app.use("/api/webhooks/spothit", webhooksSpotHitRoutes);
 module.exports = app;
