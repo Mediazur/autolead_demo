@@ -803,23 +803,37 @@ var require_spotHit = __commonJS({
       4: "echec",
       5: "expire"
     };
-    async function sendSms({ destinataires, message, expediteur, date, nom }) {
+    var STOP_MENTION = "STOP au 36200";
+    var SMS_MAX_LENGTH = 160;
+    function ensureStopMention(message, { skipStopMention } = {}) {
+      if (skipStopMention) return message;
+      if (/stop\s*(au\s*)?36200/i.test(message)) return message;
+      const withStop = `${message.trim()} ${STOP_MENTION}`;
+      if (withStop.length > SMS_MAX_LENGTH) {
+        throw new Error(
+          `Message trop long pour ajouter automatiquement la mention obligatoire "${STOP_MENTION}" (${withStop.length}/${SMS_MAX_LENGTH} caract\xE8res une fois ajout\xE9e). Raccourcis le message ou ajoute la mention toi-m\xEAme dans le texte, en dessous de la limite.`
+        );
+      }
+      return withStop;
+    }
+    async function sendSms({ destinataires, message, expediteur, date, nom, skipStopMention }) {
       if (!message || !message.trim()) throw new Error("Message SMS vide.");
       if (!Array.isArray(destinataires) || !destinataires.length) throw new Error("Aucun destinataire fourni.");
+      const finalMessage = ensureStopMention(message, { skipStopMention });
       const json = await callApi("/api/envoyer/sms", {
         destinataires,
-        message,
+        message: finalMessage,
         expediteur: expediteur || void 0,
         date: date || void 0,
         nom: nom ? String(nom).slice(0, 50) : void 0
       }, "POST");
       if (json.simulated) {
-        return { ok: true, simulated: true, spotHitId: `sim-${Date.now()}`, recipientCount: destinataires.length };
+        return { ok: true, simulated: true, spotHitId: `sim-${Date.now()}`, recipientCount: destinataires.length, message: finalMessage };
       }
       if (!json.resultat) {
         throw new Error(`Envoi Spot-Hit refus\xE9 : ${describeErrors(json.erreurs)}`);
       }
-      return { ok: true, simulated: false, spotHitId: String(json.id), recipientCount: destinataires.length };
+      return { ok: true, simulated: false, spotHitId: String(json.id), recipientCount: destinataires.length, message: finalMessage };
     }
     async function getDlr({ id, produit = "sms" }) {
       if (!id) throw new Error("id de campagne Spot-Hit requis.");
@@ -863,7 +877,7 @@ var require_spotHit = __commonJS({
       if (json.simulated) return { simulated: true };
       return { simulated: false, ...json };
     }
-    module2.exports = { sendSms, getDlr, listStops, listResponses, getCredits, describeErrors, STATUT_LABELS, isLive };
+    module2.exports = { sendSms, getDlr, listStops, listResponses, getCredits, describeErrors, STATUT_LABELS, isLive, STOP_MENTION };
   }
 });
 
