@@ -1241,6 +1241,12 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-cards .of-check svg{width:11px; height:11px;}
 .of-cards .of-card-cta-wrap{margin-top:0; padding-top:14px;}
 @media (max-width:1100px){ .of-cards .of-card-sub{font-size:16px;} }
+/* v7 : 2 pastilles puis 1 en dessous, trait séparateur */
+.of-cards .of-checks{border-top:1px solid #EEECE7; padding-top:12px; gap:0 5px;}
+.of-cards .of-checks::before{content:""; flex-basis:100%; order:1; height:0;}
+.of-cards .of-check{order:0; font-size:12.5px; padding:4px 10px; margin-bottom:6px; white-space:nowrap;}
+.of-cards .of-check:nth-child(n+3){order:2;}
+.of-cards .of-check .dot{display:none;}
 </style>
 </head>
 <body>
@@ -4312,7 +4318,7 @@ const ORDER_FLOW_DEFAULTS = {
       checks:['Rappels et essais','Payé au lead livré','Qualification tél. en option']},
     trafic: {tag:'', name:'Notoriété', title:'Générer des *visites* en concession',
       subtitle:'Invitez les automobilistes de votre secteur à venir vous voir.',
-      checks:['SMS, email ou réseaux','Ciblage premium','Idéal pour un événement']},
+      checks:['Ciblage premium','Idéal événements','SMS, email ou réseaux']},
     contacts: {tag:'', name:'Location', title:'Louer des contacts pour *mes propres campagnes*',
       subtitle:'Recevez un fichier ciblé et menez vous-même vos campagnes.',
       checks:['Vous gardez la main','Ciblage local','Tarif au contact']},
@@ -6081,7 +6087,7 @@ function renderOrderSettingsEditor(proId){
         <input class="field-input" id="${id(k+'-title')}" type="text" value="${ofEsc(c.title)}">
         <label class="field-label" style="margin-top:8px;" for="${id(k+'-subtitle')}">Description (facultative)</label>
         <textarea id="${id(k+'-subtitle')}" style="min-height:56px;">${ofEsc(c.subtitle)}</textarea>
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-checks')}">Atouts affichés avec une coche — un par ligne (3 conseillés)</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-checks')}">Atouts affichés en pastilles — un par ligne, 3 conseillés (les 2 premiers côte à côte : mettez les plus courts en premier)</label>
         <textarea id="${id(k+'-checks')}" style="min-height:70px;">${ofEsc(c.checks.join('\n'))}</textarea>
       </div>`;
   };
