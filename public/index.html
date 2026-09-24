@@ -1051,31 +1051,31 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-card:hover{transform:translateY(-3px); box-shadow:0 2px 4px rgba(28,32,36,.08), 0 18px 40px rgba(28,32,36,.12);}
 .of-card:hover{border-color:var(--oc);}
 .of-card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
-.of-card-icon{width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-.of-card-icon svg{width:28px; height:28px; stroke-width:1.9; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+.of-card-icon{width:50px; height:50px; border-radius:14px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.of-card-icon svg{width:25px; height:25px; stroke-width:1.9; fill:none; stroke-linecap:round; stroke-linejoin:round;}
 .c-prospects .of-card-icon{background:var(--amber-soft);} .c-prospects .of-card-icon svg{stroke:var(--amber-deep);}
 .c-trafic .of-card-icon{background:var(--teal-soft);} .c-trafic .of-card-icon svg{stroke:var(--teal);}
 .c-contacts .of-card-icon{background:var(--violet-soft);} .c-contacts .of-card-icon svg{stroke:var(--violet);}
 .of-card-cta{margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px; min-height:46px; border-radius:12px; font-size:14.5px; font-weight:700; background:var(--ink); color:#fff; transition:background .15s;}
 .of-card-cta svg{width:16px; height:16px; stroke:#fff; stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:transform .15s;}
-.of-card:hover .of-card-cta{filter:brightness(0.88);}
+
 .of-card:hover .of-card-cta svg{transform:translateX(3px);}
 .of-tag{align-self:flex-start; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px;}
-.of-tag.cle{background:var(--paper-raised); color:#1F5A38;}
-.of-tag.auto{background:var(--paper-raised); color:var(--ink-soft);}
-.of-card-name{font-size:24px; font-weight:800; letter-spacing:-0.02em; line-height:1.15;}
-.of-card-title{font-size:15px; font-weight:600; line-height:1.4; color:var(--ink-soft);}
+.of-tag.cle{background:var(--green-soft); color:#1F5A38;}
+.of-tag.auto{background:var(--paper); color:var(--ink-soft);}
+.of-card-name{font-size:13.5px; font-weight:700; letter-spacing:0.01em; line-height:1.2;}
+.of-card-title{font-size:21px; font-weight:800; letter-spacing:-0.02em; line-height:1.25; color:var(--ink);}
 .of-card{--oc:#1C2024; --oc-soft:#F0F1F2;}
 .of-card.c-prospects{--oc:#C44A22; --oc-soft:#FBE9DF;}
 .of-card.c-trafic{--oc:#2F5E8A; --oc-soft:#E3ECF5;}
 .of-card.c-contacts{--oc:#5A4B9E; --oc-soft:#ECE8F7;}
-.of-card{border-top:6px solid var(--oc); padding:0; gap:0; overflow:hidden;}
-.of-card-head{display:flex; flex-direction:column; gap:14px; background:var(--oc-soft); padding:22px 24px 20px;}
-.of-card-body{display:flex; flex-direction:column; gap:14px; padding:20px 24px 24px; flex:1;}
-.of-card .of-card-name{color:var(--oc);}
-.of-card .of-card-icon{background:var(--paper-raised) !important;}
+.of-card-head{display:flex; flex-direction:column; gap:16px;}
+.of-card-body{display:flex; flex-direction:column; gap:16px; flex:1;}
+.of-card .of-card-name{color:var(--oc); margin-bottom:-8px;}
+.of-card .of-card-icon{background:var(--oc-soft) !important;}
 .of-card .of-card-icon svg{stroke:var(--oc) !important;}
-.of-card .of-card-cta{background:var(--oc);}
+.of-card .of-card-cta{background:var(--ink);}
+.of-card:hover .of-card-cta{background:var(--oc);}
 .of-card .of-check svg{stroke:var(--oc);}
 .of-card-sub{font-size:13.5px; color:var(--muted); line-height:1.5;}
 .of-checks{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px solid var(--line); margin-top:auto;}
@@ -1140,6 +1140,70 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-done-ref{background:var(--paper); border-radius:12px; padding:12px 18px; display:flex; gap:20px; font-size:13.5px; flex-wrap:wrap; justify-content:center;}
 .of-classic-bar{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; background:var(--paper-raised); border:1px solid var(--line); border-radius:12px; padding:10px 16px; margin-bottom:18px; font-size:13px; color:var(--muted);}
 .badge.a_valider{background:var(--violet-soft); color:var(--violet);}
+
+/* ---- Cartes objectif v3 (maquette validée) ---- */
+.of-steps{display:flex; align-items:center; gap:12px; margin:2px 0 0;}
+.of-st{display:flex; align-items:center; gap:10px; font-size:14px; color:var(--muted); white-space:nowrap;}
+.of-st i{font-style:normal; width:32px; height:32px; border-radius:50%; border:1.5px solid #D9D7D2; background:var(--paper-raised); display:flex; align-items:center; justify-content:center; font-weight:600; font-size:13.5px; color:var(--ink);}
+.of-st.on{color:#B8431E; font-weight:600;} .of-st.on i{background:#C44A22; border-color:#C44A22; color:#fff;}
+.of-st.done i{background:var(--ink); border-color:var(--ink); color:#fff;}
+.of-ln{flex:1; height:2px; background:#E2E0DB; border-radius:2px; min-width:24px;}
+.of-ln.done{background:var(--ink);}
+@media (max-width:700px){.of-st span{display:none;}}
+.of-relaunch{padding:14px 18px; gap:16px; border:1px solid #E6E4DF; box-shadow:0 1px 2px rgba(20,23,26,.04);}
+.of-relaunch-icon{width:44px; height:44px;}
+.of-relaunch-price{display:none;}
+.of-link{font-size:14px; font-weight:600; color:var(--ink); text-decoration:underline; text-underline-offset:3px; text-decoration-color:#C9C7C2; background:none; padding:0 4px;}
+.of-q{display:flex; flex-direction:column; gap:6px; margin-top:4px;}
+.of-q .of-h{font-size:30px;}
+.of-q p{margin:0; font-size:15.5px; color:var(--muted);}
+.of-cards{gap:22px;}
+.of-cards .of-card{position:relative; --oc:#1C2024; --ob:#F0F1F2; --g1:#F0F1F2; --g2:#F7F7F7; background:var(--paper-raised); border:1px solid #E6E4DF; border-top:1px solid #E6E4DF; border-radius:22px; padding:0; gap:0; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 1px 2px rgba(20,23,26,.04), 0 14px 32px -16px rgba(20,23,26,.18); transition:transform .15s, box-shadow .15s, border-color .15s;}
+.of-cards .of-card.c-prospects{--oc:#B8431E; --ob:#FDE5D9; --g1:#FCDCCB; --g2:#FFF1EA;}
+.of-cards .of-card.c-trafic{--oc:#235487; --ob:#DCE9F7; --g1:#CFE2F6; --g2:#EEF5FC;}
+.of-cards .of-card.c-contacts{--oc:#5B3FA8; --ob:#E8E1F8; --g1:#E2D9F7; --g2:#F4F0FC;}
+.of-cards .of-card:hover{transform:translateY(-3px); border-color:var(--oc); box-shadow:0 2px 4px rgba(20,23,26,.06), 0 20px 40px -16px rgba(20,23,26,.26);}
+.of-cards .of-card:focus-visible{outline:3px solid var(--oc); outline-offset:3px;}
+.of-card-bg{position:absolute; left:0; right:0; top:0; height:200px; pointer-events:none; background:radial-gradient(120% 90% at 100% 0%, var(--g1) 0%, var(--g2) 45%, rgba(255,255,255,0) 100%);}
+.of-card-in{position:relative; padding:24px 26px 26px; display:flex; flex-direction:column; gap:12px; flex:1;}
+.of-cards .of-card-top{display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;}
+.of-cards .of-card-icon{width:60px; height:60px; border-radius:17px; background:var(--paper-raised) !important; box-shadow:0 6px 16px -6px rgba(20,23,26,.2); display:flex; align-items:center; justify-content:center;}
+.of-cards .of-card-icon svg{width:29px; height:29px; stroke:var(--oc) !important; stroke-width:1.9;}
+.of-cards .of-tag{font-size:12.5px; font-weight:600; background:var(--paper-raised); padding:5px 12px; border-radius:999px; box-shadow:0 2px 6px -2px rgba(20,23,26,.15); color:var(--ink-soft);}
+.of-cards .of-tag.cle{color:#1F5A38;}
+.of-cards .of-card-name{font-size:11.5px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--oc); margin:0;}
+.of-cards .of-card-title{font-size:23px; font-weight:800; letter-spacing:-.025em; line-height:1.2; color:var(--ink);}
+.of-cards .of-card-sub{font-size:14.5px; color:var(--muted); line-height:1.5;}
+.of-cards .of-checks{display:flex; flex-direction:column; gap:10px; padding-top:16px; border-top:1px solid #EEECE7; margin-top:4px;}
+.of-cards .of-check{display:flex; align-items:center; gap:11px; font-size:14.5px; font-weight:500; color:#33383E;}
+.of-cards .of-check .dot{width:26px; height:26px; border-radius:50%; background:var(--ob); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.of-cards .of-check svg{width:14px; height:14px; stroke:var(--oc) !important; stroke-width:2.8;}
+.of-cards .of-card-cta{margin-top:auto; height:50px; min-height:50px; border-radius:13px; background:var(--oc) !important; color:#fff; font-size:15.5px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:10px;}
+.of-cards .of-card-cta-wrap{margin-top:auto; padding-top:10px;}
+.of-cards .of-card:hover .of-card-cta{filter:brightness(.92);}
+@media (max-width:1100px){.of-card-bg{height:150px;}}
+
+/* compact : les 3 cartes visibles en entier sur un portable (≈ 800 px de haut) */
+.of-wrap{gap:16px;}
+.of-steps{gap:10px;}
+.of-st{font-size:13px; gap:8px;} .of-st i{width:26px; height:26px; font-size:12.5px;}
+.of-relaunch{padding:10px 14px 10px 12px; gap:14px; border-radius:14px;}
+.of-relaunch-icon{width:36px; height:36px; border-radius:10px;} .of-relaunch-icon svg{width:17px; height:17px;}
+.of-relaunch-title{font-size:14.5px;} .of-relaunch-sub{font-size:12.5px;}
+.of-relaunch .of-btn{min-height:40px; padding:0 16px; font-size:13.5px;}
+.of-q{gap:4px; margin-top:2px;} .of-q .of-h{font-size:26px;} .of-q p{font-size:14.5px;}
+.of-cards{gap:18px;}
+.of-card-in{padding:20px 22px 22px; gap:10px;}
+.of-cards .of-card-top{margin-bottom:4px;}
+.of-cards .of-card-icon{width:50px; height:50px; border-radius:14px;} .of-cards .of-card-icon svg{width:25px; height:25px;}
+.of-cards .of-card-title{font-size:21px; min-height:2.4em;}
+.of-cards .of-card-sub{font-size:14px; min-height:3em;}
+.of-cards .of-checks{gap:8px; padding-top:12px; margin-top:2px;}
+.of-cards .of-check{font-size:14px;} .of-cards .of-check .dot{width:24px; height:24px;}
+.of-cards .of-card-cta{height:46px; min-height:46px; font-size:15px;}
+.of-card-bg{height:170px;}
+@media (max-width:1320px){ .of-cards .of-card-title{font-size:19.5px;} }
+@media (max-width:1100px){ .of-cards .of-card-title, .of-cards .of-card-sub{min-height:0;} }
 </style>
 </head>
 <body>
@@ -4190,20 +4254,21 @@ async function launchCampaign(){
    ========================================================= */
 const ORDER_FLOW_DEFAULTS = {
   flow: 'objectif',          // 'objectif' (nouveau parcours) | 'classique' (configurateur en étapes d'avant)
-  pageTitle: 'Quel est votre objectif ?',
+  pageTitle: 'Que souhaitez-vous obtenir ?',
+  pageHelp: 'Choisissez l’objectif principal de votre campagne. Vous pourrez affiner les détails à l’étape suivante.',
   showRelaunch: true,        // raccourci « Relancer ma dernière campagne »
   requireCode: false,        // code de confirmation avant de valider la commande
   defaultFormule: 'collecte',
   cards: {
-    prospects: {tag:'Clé en main', name:'Génération de leads', title:'Alimenter mes vendeurs en nouveaux prospects',
-      subtitle:'',
-      checks:['Leads en temps réel','Ciblage premium','Option : qualification par téléphone']},
-    trafic: {tag:'Clé en main', name:'Trafic en concession', title:'Générer du trafic en point de vente',
-      subtitle:'',
-      checks:['SMS, email ou réseaux','Ciblage local','Idéal pour un événement']},
+    prospects: {tag:'Clé en main', name:'Génération de leads', title:'Trouver de nouveaux prospects',
+      subtitle:'Recevez directement des leads correspondant à vos critères.',
+      checks:['Demandes de rappel et d’essai','Facturé au lead livré','Option : qualification par téléphone']},
+    trafic: {tag:'Clé en main', name:'Trafic en concession', title:'Générer des visites en concession',
+      subtitle:'Invitez les automobilistes de votre secteur à venir vous voir.',
+      checks:['SMS, email ou réseaux','Ciblage premium','Idéal pour un événement']},
     contacts: {tag:'En autonomie', name:'Location de contacts', title:'Louer des contacts pour mes propres campagnes',
-      subtitle:'',
-      checks:['Vous gardez la main','Ciblage premium','Tarif au contact']},
+      subtitle:'Recevez un fichier ciblé et menez vous-même vos campagnes.',
+      checks:['Vous gardez la main','Ciblage local','Tarif au contact']},
   },
   formules: {
     collecte: {title:'Leads directs', desc:'Vous recevez chaque demande dès qu’elle arrive, vos vendeurs la rappellent.',
@@ -4294,6 +4359,7 @@ function orderFlowSettings(pro){
   return {
     flow: s.flow==='classique' ? 'classique' : 'objectif',
     pageTitle: s.pageTitle || d.pageTitle,
+    pageHelp: s.pageHelp!==undefined ? s.pageHelp : d.pageHelp,
     showRelaunch: s.showRelaunch!==undefined ? !!s.showRelaunch : d.showRelaunch,
     requireCode: s.requireCode!==undefined ? !!s.requireCode : d.requireCode,
     defaultFormule: s.defaultFormule==='requalif' ? 'requalif' : 'collecte',
@@ -4549,6 +4615,13 @@ function renderObjectiveOrder(){
   document.getElementById('order-content').innerHTML = `<div class="of-wrap">${html}</div>`;
 }
 
+function ofStepsHtml(n){
+  const labels = ['Objectif','Configuration','Validation'];
+  return `<div class="of-steps" aria-label="Étape ${n} sur 3">${labels.map((l,i)=>{
+    const k = i+1, cls = k===n ? 'on' : (k<n ? 'done' : '');
+    return `${i ? `<span class="of-ln ${k<=n?'done':''}"></span>` : ''}<span class="of-st ${cls}"><i>${k<n?'✓':k}</i><span>${l}</span></span>`;
+  }).join('')}</div>`;
+}
 function ofStartHtml(pro, objectives){
   const st = orderFlowSettings(pro);
   const last = st.showRelaunch ? lastRelaunchableCampaign() : null;
@@ -4562,35 +4635,34 @@ function ofStartHtml(pro, objectives){
         <div class="of-relaunch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></div>
         <div class="of-relaunch-text">
           <span class="of-relaunch-title">Relancer ma dernière campagne</span>
-          <span class="of-relaunch-sub">${ofEsc(last.id)} · ${campaignTitleHtml(last)} · ${ofFmt(target)} ${ofEsc(unit)} · ${ofEsc(centerNamesList(last.centerIds))}${progress}</span>
+          <span class="of-relaunch-sub">${ofEsc(last.id)} · ${campaignTitleHtml(last)} · ${ofFmt(target)} ${ofEsc(unit)} · ${ofEsc(centerNamesList(last.centerIds))} · ${ofFmt(campaignCost(last))} €${progress}</span>
         </div>
-        <span class="of-relaunch-price">${ofFmt(campaignCost(last))} €</span>
-        <button type="button" class="of-btn ghost" onclick="relaunchCampaign('${last.id}', true)">Modifier</button>
-        <button type="button" class="of-btn primary" onclick="relaunchCampaign('${last.id}', false)">Relancer à l'identique</button>
+        <button type="button" class="of-link" onclick="relaunchCampaign('${last.id}', true)">Modifier</button>
+        <button type="button" class="of-btn dark" onclick="relaunchCampaign('${last.id}', false)">Relancer à l'identique ${OF_ARROW_ICON.replace('<svg ','<svg width="16" height="16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" ')}</button>
       </div>`;
   }
   const cards = objectives.map(k=>{
     const c = st.cards[k];
     return `
-      <button type="button" class="of-card c-${k}" onclick="ofPickObjective('${k}')">
-        <span class="of-card-head">
+      <button type="button" class="of-card c-${k}" onclick="ofPickObjective('${k}')" aria-label="${ofEsc(c.name)} — ${ofEsc(c.title)}">
+        <span class="of-card-bg"></span>
+        <span class="of-card-in">
           <span class="of-card-top">
             <span class="of-card-icon">${OBJECTIVE_ICONS[k]}</span>
             ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
           </span>
           <span class="of-card-name">${ofEsc(c.name)}</span>
-        </span>
-        <span class="of-card-body">
-        <span class="of-card-title">${ofEsc(c.title)}</span>
-        ${c.subtitle ? `<span class="of-card-sub">${ofEsc(c.subtitle)}</span>` : ''}
-        ${c.checks.length ? `<span class="of-checks">${c.checks.map(x=>`<span class="of-check">${OF_CHECK_ICON}${ofEsc(x)}</span>`).join('')}</span>` : ''}
-        <span class="of-card-cta">Choisir ${OF_ARROW_ICON}</span>
+          <span class="of-card-title">${ofEsc(c.title)}</span>
+          ${c.subtitle ? `<span class="of-card-sub">${ofEsc(c.subtitle)}</span>` : ''}
+          ${c.checks.length ? `<span class="of-checks">${c.checks.map(x=>`<span class="of-check"><span class="dot">${OF_CHECK_ICON}</span>${ofEsc(x)}</span>`).join('')}</span>` : ''}
+          <span class="of-card-cta-wrap"><span class="of-card-cta">Choisir ${OF_ARROW_ICON}</span></span>
         </span>
       </button>`;
   }).join('');
   return `
-    <h2 class="of-h">${ofEsc(st.pageTitle)}</h2>
+    ${ofStepsHtml(1)}
     ${relaunch}
+    <div class="of-q"><h2 class="of-h">${ofEsc(st.pageTitle).replace(/ ([?!:;])/g,'\u00a0$1')}</h2>${st.pageHelp ? `<p>${ofEsc(st.pageHelp)}</p>` : ''}</div>
     ${objectives.length ? `<div class="of-cards n${Math.min(objectives.length,3)}">${cards}</div>` : `<div class="empty-inline">Aucune mécanique n'est activée pour votre compte. Contactez l'équipe AutoLead.</div>`}`;
 }
 
@@ -4756,7 +4828,8 @@ function ofConfigHtml(pro){
   return `
     <button type="button" class="of-back" onclick="ofBackToStart()">← Changer d'objectif</button>
     <div style="display:flex; flex-direction:column; gap:6px;">
-      <span class="of-step-label">${orderState.relaunchOf ? `Relance de ${ofEsc(orderState.relaunchOf)} · étape 1 sur 2` : 'Étape 1 sur 2'}</span>
+      ${ofStepsHtml(2)}
+      ${orderState.relaunchOf ? `<span class="of-step-label">Relance de ${ofEsc(orderState.relaunchOf)}</span>` : ''}
       <h2 class="of-h">${ofEsc(st.cards[obj].name)}</h2>
       <span class="of-card-sub" style="font-size:15px;">${ofEsc(st.cards[obj].title)}</span>
     </div>
@@ -4783,7 +4856,8 @@ function ofRecapHtml(pro){
   return `
     <button type="button" class="of-back" onclick="ofGo('config')">← Modifier</button>
     <div style="display:flex; flex-direction:column; gap:6px;">
-      <span class="of-step-label">${orderState.relaunchOf ? `Relance de ${ofEsc(orderState.relaunchOf)} · étape 2 sur 2` : 'Étape 2 sur 2'}</span>
+      ${ofStepsHtml(3)}
+      ${orderState.relaunchOf ? `<span class="of-step-label">Relance de ${ofEsc(orderState.relaunchOf)}</span>` : ''}
       <h2 class="of-h">Vérifiez et validez</h2>
     </div>
     <div class="of-recap">
@@ -5937,9 +6011,9 @@ function renderOrderSettingsEditor(proId){
         <div class="admin-account-name" style="margin-bottom:8px;">Carte « ${OBJECTIVE_ADMIN_LABELS[k]} »${off ? ' <span class="admin-account-sub">— mécanique désactivée pour ce compte, carte masquée</span>' : ''}</div>
         <label class="field-label" for="${id(k+'-tag')}">Étiquette (vide = pas d'étiquette)</label>
         <input class="field-input" id="${id(k+'-tag')}" type="text" value="${ofEsc(c.tag)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-name')}">Titre (court)</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-name')}">Titre court (petit, en couleur, au-dessus de l'accroche)</label>
         <input class="field-input" id="${id(k+'-name')}" type="text" value="${ofEsc(c.name)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Accroche (le bénéfice, en gras sous le titre)</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Accroche (le bénéfice client, en grand)</label>
         <input class="field-input" id="${id(k+'-title')}" type="text" value="${ofEsc(c.title)}">
         <label class="field-label" style="margin-top:8px;" for="${id(k+'-subtitle')}">Description (facultative)</label>
         <textarea id="${id(k+'-subtitle')}" style="min-height:56px;">${ofEsc(c.subtitle)}</textarea>
@@ -5972,6 +6046,8 @@ function renderOrderSettingsEditor(proId){
     </select>
     <label class="field-label" style="margin-top:10px;" for="${id('title')}">Titre de la page</label>
     <input class="field-input" id="${id('title')}" type="text" value="${ofEsc(st.pageTitle)}">
+    <label class="field-label" style="margin-top:10px;" for="${id('help')}">Phrase d'aide sous le titre (vide = aucune)</label>
+    <input class="field-input" id="${id('help')}" type="text" value="${ofEsc(st.pageHelp)}">
     <div class="admin-modules-grid" style="margin-top:12px;">
       <label class="admin-toggle-label">Raccourci « Relancer ma dernière campagne »
         <input type="checkbox" id="${id('relaunch')}" ${st.showRelaunch?'checked':''}>
@@ -6021,6 +6097,7 @@ async function saveOrderSettings(proId){
   const orderSettings = {
     flow: val('flow')==='classique' ? 'classique' : 'objectif',
     pageTitle: val('title'),
+    pageHelp: val('help'),
     showRelaunch: document.getElementById(`os-${proId}-relaunch`).checked,
     requireCode: document.getElementById(`os-${proId}-code`).checked,
     defaultFormule: val('formule')==='requalif' ? 'requalif' : 'collecte',
