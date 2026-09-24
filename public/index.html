@@ -1265,6 +1265,10 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-cards .of-hl{white-space:nowrap;}
 .of-cards{gap:16px;}
 .of-cards .of-card-in{padding-left:clamp(20px,6.5cqi,34px); padding-right:clamp(20px,6.5cqi,34px);}
+/* v10 : hiérarchie de page — question en intro, aide limitée en largeur, nom de carte discret */
+.of-q .of-h{font-size:20px; letter-spacing:-.01em;}
+.of-q p{max-width:62ch; font-size:14.5px;}
+.of-cards .of-card-pill{background:none; padding:0; border-radius:0; font-size:13px; font-weight:700; letter-spacing:.01em;}
 </style>
 </head>
 <body>
@@ -4326,7 +4330,7 @@ async function launchCampaign(){
 const ORDER_FLOW_DEFAULTS = {
   flow: 'objectif',          // 'objectif' (nouveau parcours) | 'classique' (configurateur en étapes d'avant)
   pageTitle: 'Que souhaitez-vous obtenir ?',
-  pageHelp: 'Choisissez l’objectif principal de votre campagne. Vous pourrez affiner les détails à l’étape suivante.',
+  pageHelp: 'Choisissez votre objectif, vous affinerez les détails à l’étape suivante.',
   showRelaunch: true,        // raccourci « Relancer ma dernière campagne »
   requireCode: false,        // code de confirmation avant de valider la commande
   defaultFormule: 'collecte',
