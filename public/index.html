@@ -1204,6 +1204,15 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-card-bg{height:170px;}
 @media (max-width:1320px){ .of-cards .of-card-title{font-size:19.5px;} }
 @media (max-width:1100px){ .of-cards .of-card-title, .of-cards .of-card-sub{min-height:0;} }
+
+/* ---- Cartes v4 : sans picto, nom en pastille, mot-clé surligné ---- */
+.of-cards .of-card-pill{align-self:flex-start; font-size:13px; font-weight:700; color:var(--oc); background:var(--ob); padding:6px 13px; border-radius:999px; margin:4px 0 6px;}
+.of-cards .of-card-in > .of-tag{align-self:flex-start; margin-top:-2px;}
+.of-cards .of-card-title{font-size:24px; min-height:2.4em;}
+@media (max-width:1320px){ .of-cards .of-card-title{font-size:22px;} }
+.of-hl{color:inherit; padding:0 2px; background:linear-gradient(transparent 58%, var(--hl, #F3D9CC) 58%, var(--hl, #F3D9CC) 92%, transparent 92%); -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+.of-cards .of-card.c-prospects{--hl:#FBCFB8;} .of-cards .of-card.c-trafic{--hl:#C3DBF3;} .of-cards .of-card.c-contacts{--hl:#DACEF5;}
+.of-card-bg{height:150px;}
 </style>
 </head>
 <body>
@@ -4260,13 +4269,13 @@ const ORDER_FLOW_DEFAULTS = {
   requireCode: false,        // code de confirmation avant de valider la commande
   defaultFormule: 'collecte',
   cards: {
-    prospects: {tag:'Clé en main', name:'Génération de leads', title:'Trouver de nouveaux prospects',
+    prospects: {tag:'', name:'Génération de leads', title:'Trouver de *nouveaux prospects*',
       subtitle:'Recevez directement des leads correspondant à vos critères.',
       checks:['Demandes de rappel et d’essai','Facturé au lead livré','Option : qualification par téléphone']},
-    trafic: {tag:'Clé en main', name:'Trafic en concession', title:'Générer des visites en concession',
+    trafic: {tag:'', name:'Notoriété', title:'Générer des *visites* en concession',
       subtitle:'Invitez les automobilistes de votre secteur à venir vous voir.',
       checks:['SMS, email ou réseaux','Ciblage premium','Idéal pour un événement']},
-    contacts: {tag:'En autonomie', name:'Location de contacts', title:'Louer des contacts pour mes propres campagnes',
+    contacts: {tag:'', name:'Location', title:'Louer des contacts pour *mes propres campagnes*',
       subtitle:'Recevez un fichier ciblé et menez vous-même vos campagnes.',
       checks:['Vous gardez la main','Ciblage local','Tarif au contact']},
   },
@@ -4319,6 +4328,9 @@ function ofEsc(v){
   if(v==null) return '';
   return String(v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 }
+// Accroche : *mot-clé* → surligné dans la couleur de la carte
+function ofAcc(v){ return ofEsc(v).replace(/\*([^*]+)\*/g, '<mark class="of-hl">$1</mark>'); }
+function ofPlain(v){ return String(v||'').replace(/\*/g,''); }
 function ofFmt(n){ return Math.round(n).toLocaleString('fr-FR'); }
 function ofDateLabel(iso){
   if(!iso) return '—';
@@ -4644,15 +4656,12 @@ function ofStartHtml(pro, objectives){
   const cards = objectives.map(k=>{
     const c = st.cards[k];
     return `
-      <button type="button" class="of-card c-${k}" onclick="ofPickObjective('${k}')" aria-label="${ofEsc(c.name)} — ${ofEsc(c.title)}">
+      <button type="button" class="of-card c-${k}" onclick="ofPickObjective('${k}')" aria-label="${ofEsc(c.name)} — ${ofEsc(ofPlain(c.title))}">
         <span class="of-card-bg"></span>
         <span class="of-card-in">
-          <span class="of-card-top">
-            <span class="of-card-icon">${OBJECTIVE_ICONS[k]}</span>
-            ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
-          </span>
-          <span class="of-card-name">${ofEsc(c.name)}</span>
-          <span class="of-card-title">${ofEsc(c.title)}</span>
+          <span class="of-card-pill">${ofEsc(c.name)}</span>
+          ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
+          <span class="of-card-title">${ofAcc(c.title)}</span>
           ${c.subtitle ? `<span class="of-card-sub">${ofEsc(c.subtitle)}</span>` : ''}
           ${c.checks.length ? `<span class="of-checks">${c.checks.map(x=>`<span class="of-check"><span class="dot">${OF_CHECK_ICON}</span>${ofEsc(x)}</span>`).join('')}</span>` : ''}
           <span class="of-card-cta-wrap"><span class="of-card-cta">Choisir ${OF_ARROW_ICON}</span></span>
@@ -4831,7 +4840,7 @@ function ofConfigHtml(pro){
       ${ofStepsHtml(2)}
       ${orderState.relaunchOf ? `<span class="of-step-label">Relance de ${ofEsc(orderState.relaunchOf)}</span>` : ''}
       <h2 class="of-h">${ofEsc(st.cards[obj].name)}</h2>
-      <span class="of-card-sub" style="font-size:15px;">${ofEsc(st.cards[obj].title)}</span>
+      <span class="of-card-sub" style="font-size:15px;">${ofEsc(ofPlain(st.cards[obj].title))}</span>
     </div>
     <div class="of-layout">
       <div class="of-col">
@@ -6009,11 +6018,11 @@ function renderOrderSettingsEditor(proId){
     return `
       <div class="admin-segment-form" style="margin-top:10px;">
         <div class="admin-account-name" style="margin-bottom:8px;">Carte « ${OBJECTIVE_ADMIN_LABELS[k]} »${off ? ' <span class="admin-account-sub">— mécanique désactivée pour ce compte, carte masquée</span>' : ''}</div>
-        <label class="field-label" for="${id(k+'-tag')}">Étiquette (vide = pas d'étiquette)</label>
+        <label class="field-label" for="${id(k+'-tag')}">Étiquette complémentaire, ex. « Clé en main » (vide = aucune)</label>
         <input class="field-input" id="${id(k+'-tag')}" type="text" value="${ofEsc(c.tag)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-name')}">Titre court (petit, en couleur, au-dessus de l'accroche)</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-name')}">Nom en pastille (au-dessus de l'accroche)</label>
         <input class="field-input" id="${id(k+'-name')}" type="text" value="${ofEsc(c.name)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Accroche (le bénéfice client, en grand)</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Accroche (le bénéfice client, en grand) — entourez le mot-clé à surligner d'astérisques, ex. Trouver de *nouveaux prospects*</label>
         <input class="field-input" id="${id(k+'-title')}" type="text" value="${ofEsc(c.title)}">
         <label class="field-label" style="margin-top:8px;" for="${id(k+'-subtitle')}">Description (facultative)</label>
         <textarea id="${id(k+'-subtitle')}" style="min-height:56px;">${ofEsc(c.subtitle)}</textarea>
