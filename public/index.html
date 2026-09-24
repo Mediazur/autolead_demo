@@ -1047,15 +1047,28 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-cards.n2{grid-template-columns:repeat(2,minmax(0,1fr));}
 .of-cards.n1{grid-template-columns:minmax(0,1fr); max-width:520px;}
 @media (max-width:1100px){.of-cards, .of-cards.n2{grid-template-columns:1fr;}}
-.of-card{text-align:left; background:var(--paper-raised); border:2px solid transparent; border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:12px; color:var(--ink); box-shadow:0 1px 2px rgba(28,32,36,.06), 0 10px 30px rgba(28,32,36,.07); transition:border-color .15s, transform .15s;}
-.of-card:hover{border-color:var(--ink); transform:translateY(-2px);}
+.of-card{text-align:left; background:var(--paper-raised); border:1.5px solid var(--line); border-radius:18px; padding:26px; display:flex; flex-direction:column; gap:14px; color:var(--ink); box-shadow:0 1px 2px rgba(28,32,36,.06), 0 12px 32px rgba(28,32,36,.08); transition:border-color .15s, transform .15s, box-shadow .15s;}
+.of-card:hover{transform:translateY(-3px); box-shadow:0 2px 4px rgba(28,32,36,.08), 0 18px 40px rgba(28,32,36,.12);}
+.of-card.c-prospects:hover{border-color:var(--amber);}
+.of-card.c-trafic:hover{border-color:var(--teal);}
+.of-card.c-contacts:hover{border-color:var(--violet);}
+.of-card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+.of-card-icon{width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+.of-card-icon svg{width:28px; height:28px; stroke-width:1.9; fill:none; stroke-linecap:round; stroke-linejoin:round;}
+.c-prospects .of-card-icon{background:var(--amber-soft);} .c-prospects .of-card-icon svg{stroke:var(--amber-deep);}
+.c-trafic .of-card-icon{background:var(--teal-soft);} .c-trafic .of-card-icon svg{stroke:var(--teal);}
+.c-contacts .of-card-icon{background:var(--violet-soft);} .c-contacts .of-card-icon svg{stroke:var(--violet);}
+.of-card-cta{margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px; min-height:46px; border-radius:12px; font-size:14.5px; font-weight:700; background:var(--ink); color:#fff; transition:background .15s;}
+.of-card-cta svg{width:16px; height:16px; stroke:#fff; stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:transform .15s;}
+.c-prospects:hover .of-card-cta{background:#C44A22;} .c-trafic:hover .of-card-cta{background:#2F5E8A;} .c-contacts:hover .of-card-cta{background:var(--violet);}
+.of-card:hover .of-card-cta svg{transform:translateX(3px);}
 .of-tag{align-self:flex-start; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px;}
 .of-tag.cle{background:var(--green-soft); color:#1F5A38;}
-.of-tag.auto{background:var(--teal-soft); color:#1E4E7C;}
-.of-card-title{font-size:19px; font-weight:700; letter-spacing:-0.01em; line-height:1.25;}
+.of-tag.auto{background:var(--paper); color:var(--ink-soft); border:1px solid var(--line);}
+.of-card-title{font-size:20px; font-weight:800; letter-spacing:-0.015em; line-height:1.25;}
 .of-card-sub{font-size:13.5px; color:var(--muted); line-height:1.5;}
 .of-checks{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px solid var(--line); margin-top:auto;}
-.of-check{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600;}
+.of-check{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; color:var(--ink-soft);}
 .of-check svg{width:15px; height:15px; stroke:#1F5A38; flex-shrink:0;}
 .of-layout{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:start;}
 @media (max-width:1000px){.of-layout{grid-template-columns:1fr;}}
@@ -4218,6 +4231,12 @@ const TRAFIC_DATE_LABELS = {evenement:'Date de diffusion', offre:'Date de diffus
 // (lu tout de suite), réseaux/Google quand c'est dans la durée (répétition).
 const TRAFIC_CHANNEL_SUGGEST = {evenement:['sms'], offre:['sms','email'], modele:['sms','meta'], concession:['meta','google']};
 const CONTACT_USAGES = {sms:'SMS', email:'Email', tel:'Téléphone'};
+const OBJECTIVE_ICONS = {
+  prospects:'<svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M19 8v6M16 11h6"/></svg>',
+  trafic:'<svg viewBox="0 0 24 24"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/></svg>',
+  contacts:'<svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>',
+};
+const OF_ARROW_ICON = '<svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 const OF_CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
 
 function ofEsc(v){
@@ -4541,11 +4560,15 @@ function ofStartHtml(pro, objectives){
   const cards = objectives.map(k=>{
     const c = st.cards[k];
     return `
-      <button type="button" class="of-card" onclick="ofPickObjective('${k}')">
-        ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
+      <button type="button" class="of-card c-${k}" onclick="ofPickObjective('${k}')">
+        <span class="of-card-top">
+          <span class="of-card-icon">${OBJECTIVE_ICONS[k]}</span>
+          ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
+        </span>
         <span class="of-card-title">${ofEsc(c.title)}</span>
         ${c.subtitle ? `<span class="of-card-sub">${ofEsc(c.subtitle)}</span>` : ''}
         ${c.checks.length ? `<span class="of-checks">${c.checks.map(x=>`<span class="of-check">${OF_CHECK_ICON}${ofEsc(x)}</span>`).join('')}</span>` : ''}
+        <span class="of-card-cta">Choisir ${OF_ARROW_ICON}</span>
       </button>`;
   }).join('');
   return `
