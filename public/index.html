@@ -1258,6 +1258,12 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-cards .of-check{margin-bottom:7px; font-size:clamp(12px,4cqi,14px); padding:clamp(4px,1.4cqi,6px) clamp(9px,3.4cqi,13px);}
 .of-cards .of-card-cta-wrap{padding-top:clamp(16px,5.5cqi,26px);}
 .of-cards .of-card-cta{height:clamp(46px,16cqi,56px); min-height:0; font-size:clamp(15px,5cqi,17px);}
+/* v9 : mot-clé en couleur (plus de surlignage), titres sur 2 lignes max, cartes élargies */
+.of-cards .of-hl{background:none; padding:0; color:var(--oc);}
+.of-cards .of-card-title{line-height:1.1; display:block;}
+.main:has(.of-cards){max-width:1520px;}
+.of-cards{gap:16px;}
+.of-cards .of-card-in{padding-left:clamp(20px,6.5cqi,34px); padding-right:clamp(20px,6.5cqi,34px);}
 </style>
 </head>
 <body>
@@ -4680,8 +4686,25 @@ function renderObjectiveOrder(){
   else if(orderState.flowScreen==='config' && orderState.objective) html = ofConfigHtml(pro);
   else html = ofStartHtml(pro, objectives);
   document.getElementById('order-content').innerHTML = `<div class="of-wrap">${html}</div>`;
+  fitObjectiveTitles();
 }
 
+/* Titres des cartes objectif : la plus grande taille commune qui tient sur 2 lignes */
+const OF_TITLE_MAX = 46, OF_TITLE_MIN = 20, OF_TITLE_LINES = 2;
+function fitObjectiveTitles(){
+  const titles = [...document.querySelectorAll('.of-cards .of-card-title')];
+  if(!titles.length || !titles[0].offsetParent) return;
+  let size = OF_TITLE_MAX;
+  const fits = () => titles.every(t => t.scrollHeight <= parseFloat(getComputedStyle(t).lineHeight) * OF_TITLE_LINES + 2);
+  titles.forEach(t => t.style.fontSize = size + 'px');
+  while(size > OF_TITLE_MIN && !fits()){
+    size -= 1;
+    titles.forEach(t => t.style.fontSize = size + 'px');
+  }
+}
+let ofFitTimer = null;
+window.addEventListener('resize', () => { clearTimeout(ofFitTimer); ofFitTimer = setTimeout(fitObjectiveTitles, 80); });
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(fitObjectiveTitles);
 function ofStepsHtml(n){
   const labels = ['Objectif','Configuration','Validation'];
   return `<div class="of-steps" aria-label="Étape ${n} sur 3">${labels.map((l,i)=>{
