@@ -1247,6 +1247,17 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-cards .of-check{order:0; font-size:12.5px; padding:4px 10px; margin-bottom:6px; white-space:nowrap;}
 .of-cards .of-check:nth-child(n+3){order:2;}
 .of-cards .of-check .dot{display:none;}
+/* v8 : cartes adaptatives — tailles proportionnelles à la largeur de la carte */
+.of-cards .of-card{container-type:inline-size;}
+.of-cards .of-card-in{padding:clamp(22px,8.5cqi,38px) clamp(20px,7.5cqi,34px) clamp(22px,8cqi,34px); gap:0;}
+.of-cards .of-card-pill{margin:0 0 clamp(14px,5cqi,22px); font-size:clamp(12.5px,4.2cqi,14.5px);}
+.of-cards .of-card-in > .of-tag{margin:0 0 12px;}
+.of-cards .of-card-title{font-size:clamp(24px,10.6cqi,40px); line-height:1.12; letter-spacing:-.03em; margin-bottom:clamp(12px,4.5cqi,20px); min-height:0;}
+.of-cards .of-card-sub{font-size:clamp(15px,5.2cqi,19px); line-height:1.5; color:#4A5057; margin-bottom:clamp(18px,6.5cqi,30px); min-height:0;}
+.of-cards .of-checks{padding-top:clamp(14px,5cqi,22px);}
+.of-cards .of-check{margin-bottom:7px; font-size:clamp(12px,4cqi,14px); padding:clamp(4px,1.4cqi,6px) clamp(9px,3.4cqi,13px);}
+.of-cards .of-card-cta-wrap{padding-top:clamp(16px,5.5cqi,26px);}
+.of-cards .of-card-cta{height:clamp(46px,16cqi,56px); min-height:0; font-size:clamp(15px,5cqi,17px);}
 </style>
 </head>
 <body>
@@ -4319,7 +4330,7 @@ const ORDER_FLOW_DEFAULTS = {
     trafic: {tag:'', name:'Notoriété', title:'Générer des *visites* en concession',
       subtitle:'Invitez les automobilistes de votre secteur à venir vous voir.',
       checks:['Ciblage premium','Idéal événements','SMS, email ou réseaux']},
-    contacts: {tag:'', name:'Location', title:'Louer des contacts pour *mes propres campagnes*',
+    contacts: {tag:'', name:'Location', title:'Louer des contacts pour *mes campagnes*',
       subtitle:'Recevez un fichier ciblé et menez vous-même vos campagnes.',
       checks:['Vous gardez la main','Ciblage local','Tarif au contact']},
   },
