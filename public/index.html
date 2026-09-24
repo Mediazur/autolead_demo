@@ -1049,9 +1049,7 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 @media (max-width:1100px){.of-cards, .of-cards.n2{grid-template-columns:1fr;}}
 .of-card{text-align:left; background:var(--paper-raised); border:1.5px solid var(--line); border-radius:18px; padding:26px; display:flex; flex-direction:column; gap:14px; color:var(--ink); box-shadow:0 1px 2px rgba(28,32,36,.06), 0 12px 32px rgba(28,32,36,.08); transition:border-color .15s, transform .15s, box-shadow .15s;}
 .of-card:hover{transform:translateY(-3px); box-shadow:0 2px 4px rgba(28,32,36,.08), 0 18px 40px rgba(28,32,36,.12);}
-.of-card.c-prospects:hover{border-color:var(--amber);}
-.of-card.c-trafic:hover{border-color:var(--teal);}
-.of-card.c-contacts:hover{border-color:var(--violet);}
+.of-card:hover{border-color:var(--oc);}
 .of-card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
 .of-card-icon{width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; flex-shrink:0;}
 .of-card-icon svg{width:28px; height:28px; stroke-width:1.9; fill:none; stroke-linecap:round; stroke-linejoin:round;}
@@ -1060,12 +1058,25 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .c-contacts .of-card-icon{background:var(--violet-soft);} .c-contacts .of-card-icon svg{stroke:var(--violet);}
 .of-card-cta{margin-top:6px; display:flex; align-items:center; justify-content:center; gap:8px; min-height:46px; border-radius:12px; font-size:14.5px; font-weight:700; background:var(--ink); color:#fff; transition:background .15s;}
 .of-card-cta svg{width:16px; height:16px; stroke:#fff; stroke-width:2.2; fill:none; stroke-linecap:round; stroke-linejoin:round; transition:transform .15s;}
-.c-prospects:hover .of-card-cta{background:#C44A22;} .c-trafic:hover .of-card-cta{background:#2F5E8A;} .c-contacts:hover .of-card-cta{background:var(--violet);}
+.of-card:hover .of-card-cta{filter:brightness(0.88);}
 .of-card:hover .of-card-cta svg{transform:translateX(3px);}
 .of-tag{align-self:flex-start; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px;}
-.of-tag.cle{background:var(--green-soft); color:#1F5A38;}
-.of-tag.auto{background:var(--paper); color:var(--ink-soft); border:1px solid var(--line);}
-.of-card-title{font-size:20px; font-weight:800; letter-spacing:-0.015em; line-height:1.25;}
+.of-tag.cle{background:var(--paper-raised); color:#1F5A38;}
+.of-tag.auto{background:var(--paper-raised); color:var(--ink-soft);}
+.of-card-name{font-size:24px; font-weight:800; letter-spacing:-0.02em; line-height:1.15;}
+.of-card-title{font-size:15px; font-weight:600; line-height:1.4; color:var(--ink-soft);}
+.of-card{--oc:#1C2024; --oc-soft:#F0F1F2;}
+.of-card.c-prospects{--oc:#C44A22; --oc-soft:#FBE9DF;}
+.of-card.c-trafic{--oc:#2F5E8A; --oc-soft:#E3ECF5;}
+.of-card.c-contacts{--oc:#5A4B9E; --oc-soft:#ECE8F7;}
+.of-card{border-top:6px solid var(--oc); padding:0; gap:0; overflow:hidden;}
+.of-card-head{display:flex; flex-direction:column; gap:14px; background:var(--oc-soft); padding:22px 24px 20px;}
+.of-card-body{display:flex; flex-direction:column; gap:14px; padding:20px 24px 24px; flex:1;}
+.of-card .of-card-name{color:var(--oc);}
+.of-card .of-card-icon{background:var(--paper-raised) !important;}
+.of-card .of-card-icon svg{stroke:var(--oc) !important;}
+.of-card .of-card-cta{background:var(--oc);}
+.of-card .of-check svg{stroke:var(--oc);}
 .of-card-sub{font-size:13.5px; color:var(--muted); line-height:1.5;}
 .of-checks{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px solid var(--line); margin-top:auto;}
 .of-check{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:500; color:var(--ink-soft);}
@@ -4184,14 +4195,14 @@ const ORDER_FLOW_DEFAULTS = {
   requireCode: false,        // code de confirmation avant de valider la commande
   defaultFormule: 'collecte',
   cards: {
-    prospects: {tag:'Clé en main', title:'Alimenter mes vendeurs en nouveaux prospects',
-      subtitle:'Des personnes intéressées par un véhicule laissent leurs coordonnées, vos vendeurs les reçoivent aussitôt.',
+    prospects: {tag:'Clé en main', name:'Génération de leads', title:'Alimenter mes vendeurs en nouveaux prospects',
+      subtitle:'',
       checks:['Leads en temps réel','Ciblage premium','Option : qualification par téléphone']},
-    trafic: {tag:'Clé en main', title:'Générer du trafic en point de vente',
-      subtitle:'Événement, offre, nouveau modèle : faites venir les automobilistes de votre secteur.',
+    trafic: {tag:'Clé en main', name:'Trafic en concession', title:'Générer du trafic en point de vente',
+      subtitle:'',
       checks:['SMS, email ou réseaux','Ciblage local','Idéal pour un événement']},
-    contacts: {tag:'En autonomie', title:'Louer des contacts pour mes propres campagnes',
-      subtitle:'Vous recevez une liste de contacts ciblés et vous menez vous-même vos campagnes SMS, email ou téléphone.',
+    contacts: {tag:'En autonomie', name:'Location de contacts', title:'Louer des contacts pour mes propres campagnes',
+      subtitle:'',
       checks:['Vous gardez la main','Ciblage premium','Tarif au contact']},
   },
   formules: {
@@ -4261,6 +4272,7 @@ function orderFlowSettings(pro){
     const o = (s.cards||{})[k] || {};
     return {
       tag: o.tag!==undefined ? o.tag : d.cards[k].tag,
+      name: o.name || d.cards[k].name,
       title: o.title || d.cards[k].title,
       subtitle: o.subtitle!==undefined ? o.subtitle : d.cards[k].subtitle,
       checks: cleanList(o.checks, d.cards[k].checks),
@@ -4561,14 +4573,19 @@ function ofStartHtml(pro, objectives){
     const c = st.cards[k];
     return `
       <button type="button" class="of-card c-${k}" onclick="ofPickObjective('${k}')">
-        <span class="of-card-top">
-          <span class="of-card-icon">${OBJECTIVE_ICONS[k]}</span>
-          ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
+        <span class="of-card-head">
+          <span class="of-card-top">
+            <span class="of-card-icon">${OBJECTIVE_ICONS[k]}</span>
+            ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
+          </span>
+          <span class="of-card-name">${ofEsc(c.name)}</span>
         </span>
+        <span class="of-card-body">
         <span class="of-card-title">${ofEsc(c.title)}</span>
         ${c.subtitle ? `<span class="of-card-sub">${ofEsc(c.subtitle)}</span>` : ''}
         ${c.checks.length ? `<span class="of-checks">${c.checks.map(x=>`<span class="of-check">${OF_CHECK_ICON}${ofEsc(x)}</span>`).join('')}</span>` : ''}
         <span class="of-card-cta">Choisir ${OF_ARROW_ICON}</span>
+        </span>
       </button>`;
   }).join('');
   return `
@@ -4740,7 +4757,8 @@ function ofConfigHtml(pro){
     <button type="button" class="of-back" onclick="ofBackToStart()">← Changer d'objectif</button>
     <div style="display:flex; flex-direction:column; gap:6px;">
       <span class="of-step-label">${orderState.relaunchOf ? `Relance de ${ofEsc(orderState.relaunchOf)} · étape 1 sur 2` : 'Étape 1 sur 2'}</span>
-      <h2 class="of-h">${ofEsc(st.cards[obj].title)}</h2>
+      <h2 class="of-h">${ofEsc(st.cards[obj].name)}</h2>
+      <span class="of-card-sub" style="font-size:15px;">${ofEsc(st.cards[obj].title)}</span>
     </div>
     <div class="of-layout">
       <div class="of-col">
@@ -4770,7 +4788,7 @@ function ofRecapHtml(pro){
     </div>
     <div class="of-recap">
       <div class="of-section" style="padding:24px;">
-        <h3>${ofEsc(st.cards[orderState.objective].title)}</h3>
+        <h3>${ofEsc(st.cards[orderState.objective].name)}</h3>
         <div class="of-rows" style="font-size:14px;">${ofRowsHtml(ofSummaryRows(pro))}</div>
         <div class="of-total"><span class="k">Budget estimé</span><span class="v">${ofFmt(total)} €</span></div>
         <div class="of-note">${ofEstimateNote()}</div>
@@ -5919,9 +5937,11 @@ function renderOrderSettingsEditor(proId){
         <div class="admin-account-name" style="margin-bottom:8px;">Carte « ${OBJECTIVE_ADMIN_LABELS[k]} »${off ? ' <span class="admin-account-sub">— mécanique désactivée pour ce compte, carte masquée</span>' : ''}</div>
         <label class="field-label" for="${id(k+'-tag')}">Étiquette (vide = pas d'étiquette)</label>
         <input class="field-input" id="${id(k+'-tag')}" type="text" value="${ofEsc(c.tag)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Titre</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-name')}">Titre (court)</label>
+        <input class="field-input" id="${id(k+'-name')}" type="text" value="${ofEsc(c.name)}">
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Accroche (le bénéfice, en gras sous le titre)</label>
         <input class="field-input" id="${id(k+'-title')}" type="text" value="${ofEsc(c.title)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-subtitle')}">Sous-titre</label>
+        <label class="field-label" style="margin-top:8px;" for="${id(k+'-subtitle')}">Description (facultative)</label>
         <textarea id="${id(k+'-subtitle')}" style="min-height:56px;">${ofEsc(c.subtitle)}</textarea>
         <label class="field-label" style="margin-top:8px;" for="${id(k+'-checks')}">Atouts affichés avec une coche — un par ligne (3 conseillés)</label>
         <textarea id="${id(k+'-checks')}" style="min-height:70px;">${ofEsc(c.checks.join('\n'))}</textarea>
@@ -5985,7 +6005,7 @@ async function saveOrderSettings(proId){
   OBJECTIVE_KEYS.forEach(k=>{
     const title = val(k+'-title');
     if(!title){ return; }
-    cards[k] = {tag: val(k+'-tag'), title, subtitle: val(k+'-subtitle'), checks: lines(k+'-checks')};
+    cards[k] = {tag: val(k+'-tag'), name: val(k+'-name'), title, subtitle: val(k+'-subtitle'), checks: lines(k+'-checks')};
   });
   const formules = {};
   ['collecte','requalif'].forEach(k=>{
