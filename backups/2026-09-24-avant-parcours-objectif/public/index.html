@@ -1021,101 +1021,6 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
   .agenda-item{padding:11px 13px;}
   .campaign-card{padding:16px 16px 16px 14px;}
 }
-
-/* ---------- PARCOURS DE COMMANDE PAR OBJECTIF ---------- */
-.of-wrap{display:flex; flex-direction:column; gap:20px;}
-.of-h{font-size:25px; font-weight:800; letter-spacing:-0.02em; margin:0; line-height:1.2;}
-.of-back{align-self:flex-start; font-size:13.5px; font-weight:600; color:var(--muted); padding:0; background:none;}
-.of-back:hover{color:var(--ink);}
-.of-step-label{font-size:12.5px; font-weight:600; color:var(--muted);}
-.of-btn{min-height:44px; padding:0 18px; border-radius:11px; font-size:14px; font-weight:700; display:inline-flex; align-items:center; justify-content:center; gap:8px; white-space:nowrap;}
-.of-btn.primary{background:#C44A22; color:#fff;}
-.of-btn.primary:hover{background:#A83E1D;}
-.of-btn.dark{background:var(--ink); color:#fff;}
-.of-btn.dark:hover{background:var(--ink-soft);}
-.of-btn.ghost{background:var(--paper-raised); border:1.5px solid var(--line); color:var(--ink);}
-.of-btn.ghost:hover{border-color:var(--ink);}
-.of-btn.loading{opacity:.7; pointer-events:none;}
-.of-relaunch{background:var(--paper-raised); border-radius:16px; padding:16px 20px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; box-shadow:0 1px 2px rgba(28,32,36,.06), 0 8px 24px rgba(28,32,36,.06);}
-.of-relaunch-icon{width:42px; height:42px; border-radius:12px; background:var(--amber-soft); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
-.of-relaunch-icon svg{stroke:var(--amber-deep);}
-.of-relaunch-text{flex:1; min-width:220px; display:flex; flex-direction:column; gap:3px;}
-.of-relaunch-title{font-size:15.5px; font-weight:700;}
-.of-relaunch-sub{font-size:13px; color:var(--muted); line-height:1.45;}
-.of-relaunch-price{font-size:19px; font-weight:800; letter-spacing:-0.02em;}
-.of-cards{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px;}
-.of-cards.n2{grid-template-columns:repeat(2,minmax(0,1fr));}
-.of-cards.n1{grid-template-columns:minmax(0,1fr); max-width:520px;}
-@media (max-width:1100px){.of-cards, .of-cards.n2{grid-template-columns:1fr;}}
-.of-card{text-align:left; background:var(--paper-raised); border:2px solid transparent; border-radius:18px; padding:24px; display:flex; flex-direction:column; gap:12px; color:var(--ink); box-shadow:0 1px 2px rgba(28,32,36,.06), 0 10px 30px rgba(28,32,36,.07); transition:border-color .15s, transform .15s;}
-.of-card:hover{border-color:var(--ink); transform:translateY(-2px);}
-.of-tag{align-self:flex-start; font-size:11.5px; font-weight:700; padding:3px 10px; border-radius:999px;}
-.of-tag.cle{background:var(--green-soft); color:#1F5A38;}
-.of-tag.auto{background:var(--teal-soft); color:#1E4E7C;}
-.of-card-title{font-size:19px; font-weight:700; letter-spacing:-0.01em; line-height:1.25;}
-.of-card-sub{font-size:13.5px; color:var(--muted); line-height:1.5;}
-.of-checks{display:flex; flex-direction:column; gap:8px; padding-top:12px; border-top:1px solid var(--line); margin-top:auto;}
-.of-check{display:flex; align-items:center; gap:8px; font-size:13.5px; font-weight:600;}
-.of-check svg{width:15px; height:15px; stroke:#1F5A38; flex-shrink:0;}
-.of-layout{display:grid; grid-template-columns:minmax(0,1fr) 320px; gap:24px; align-items:start;}
-@media (max-width:1000px){.of-layout{grid-template-columns:1fr;}}
-.of-col{display:flex; flex-direction:column; gap:14px; min-width:0;}
-.of-section{background:var(--paper-raised); border-radius:16px; padding:20px 22px; display:flex; flex-direction:column; gap:12px; box-shadow:0 1px 2px rgba(28,32,36,.05);}
-.of-section-head{display:flex; align-items:baseline; justify-content:space-between; gap:6px 12px; flex-wrap:wrap;}
-.of-section h3{font-family:var(--font-ui); font-size:16.5px; font-weight:700; margin:0; letter-spacing:-0.01em;}
-.of-hint{font-size:12.5px; color:var(--muted); line-height:1.45;}
-.of-chips{display:flex; gap:8px; flex-wrap:wrap;}
-.of-chip{min-height:40px; padding:0 16px; border-radius:999px; border:1.5px solid var(--line); background:var(--paper-raised); color:var(--ink); font-size:13.5px; font-weight:600;}
-.of-chip:hover{border-color:var(--ink);}
-.of-chip.on{background:var(--ink); border-color:var(--ink); color:#fff;}
-.of-qty-row{display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
-.of-stepper{display:flex; align-items:center; gap:10px;}
-.of-stepper > button{width:44px; height:44px; border-radius:12px; border:1.5px solid var(--line); background:var(--paper-raised); font-size:20px; font-weight:600;}
-.of-stepper > button:hover{border-color:var(--ink);}
-.of-stepper-val{width:96px; text-align:center; display:flex; flex-direction:column;}
-.of-stepper-val input{width:100%; border:none; background:transparent; font-size:32px; font-weight:800; letter-spacing:-0.03em; text-align:center; color:var(--ink); font-family:var(--font-ui); -moz-appearance:textfield; padding:0;}
-.of-stepper-val input::-webkit-outer-spin-button, .of-stepper-val input::-webkit-inner-spin-button{-webkit-appearance:none; margin:0;}
-.of-stepper-val span{font-size:12.5px; color:var(--muted);}
-.of-options{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;}
-@media (max-width:700px){.of-options{grid-template-columns:1fr;}}
-.of-option{text-align:left; display:flex; flex-direction:column; gap:10px; padding:16px 18px; border-radius:14px; border:2px solid var(--line); background:#FBFAF8; color:var(--ink);}
-.of-option:hover{border-color:#B9BCBE;}
-.of-option.on{border-color:var(--ink); background:var(--paper-raised); box-shadow:0 6px 18px rgba(28,32,36,.10);}
-.of-option-title{font-size:15px; font-weight:700;}
-.of-option-desc{font-size:13px; color:var(--muted); line-height:1.5;}
-.of-option-foot{display:flex; justify-content:space-between; align-items:baseline; padding-top:10px; border-top:1px solid var(--line);}
-.of-option-foot .u{font-size:13px; color:var(--muted);}
-.of-option-foot .t{font-size:17px; font-weight:800;}
-.of-field{display:flex; flex-direction:column; gap:6px; font-size:13px; color:var(--muted);}
-.of-field input, .of-field textarea{border:1.5px solid var(--line); border-radius:11px; padding:10px 12px; font-size:14px; color:var(--ink); font-family:var(--font-ui); background:var(--paper-raised);}
-.of-field textarea{min-height:84px; resize:vertical; line-height:1.5;}
-.of-inline{display:flex; gap:12px; flex-wrap:wrap; align-items:flex-end;}
-.of-summary{background:var(--paper-raised); border-radius:18px; padding:22px; display:flex; flex-direction:column; gap:14px; box-shadow:0 1px 2px rgba(28,32,36,.06), 0 12px 32px rgba(28,32,36,.08); position:sticky; top:20px;}
-@media (max-width:1000px){.of-summary{position:static;}}
-.of-summary h3{font-family:var(--font-ui); font-size:16px; font-weight:700; margin:0;}
-.of-rows{display:flex; flex-direction:column; gap:10px; font-size:13.5px;}
-.of-row{display:flex; justify-content:space-between; gap:12px;}
-.of-row .k{color:var(--muted); flex-shrink:0;}
-.of-row .v{font-weight:600; text-align:right;}
-.of-total{border-top:1px solid var(--line); padding-top:14px; display:flex; justify-content:space-between; align-items:baseline; gap:10px;}
-.of-total .k{font-size:13.5px; color:var(--muted);}
-.of-total .v{font-size:28px; font-weight:800; letter-spacing:-0.03em; font-variant-numeric:tabular-nums;}
-.of-note{font-size:12px; color:var(--muted); line-height:1.5;}
-.of-advanced{font-size:13px; font-weight:600; color:var(--teal); padding:4px 0; text-align:left; align-self:flex-start; background:none;}
-.of-advanced:hover{text-decoration:underline;}
-.of-recap{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; align-items:start;}
-@media (max-width:900px){.of-recap{grid-template-columns:1fr;}}
-.of-next{display:flex; gap:12px; align-items:flex-start;}
-.of-next-num{width:28px; height:28px; flex-shrink:0; border-radius:50%; background:var(--paper); display:flex; align-items:center; justify-content:center; font-size:12.5px; font-weight:700;}
-.of-next-t{font-size:14px; font-weight:600;}
-.of-next-d{font-size:13px; color:var(--muted); line-height:1.45;}
-.of-actions{display:flex; justify-content:flex-end; gap:10px; flex-wrap:wrap;}
-.of-done{max-width:600px; margin:24px auto 0; background:var(--paper-raised); border-radius:22px; padding:40px 32px; display:flex; flex-direction:column; align-items:center; gap:16px; text-align:center; box-shadow:0 1px 2px rgba(28,32,36,.06), 0 16px 40px rgba(28,32,36,.09);}
-.of-done-icon{width:60px; height:60px; border-radius:50%; background:var(--green-soft); display:flex; align-items:center; justify-content:center;}
-.of-done p{font-size:15px; color:var(--muted); line-height:1.6;}
-.of-done-ref{background:var(--paper); border-radius:12px; padding:12px 18px; display:flex; gap:20px; font-size:13.5px; flex-wrap:wrap; justify-content:center;}
-.of-classic-bar{display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; background:var(--paper-raised); border:1px solid var(--line); border-radius:12px; padding:10px 16px; margin-bottom:18px; font-size:13px; color:var(--muted);}
-.badge.a_valider{background:var(--violet-soft); color:var(--violet);}
 </style>
 </head>
 <body>
@@ -1695,7 +1600,7 @@ async function loadCampaignsFromApiAdmin(){
 
 const STATUS_LABELS = {transmis:'Transmis', contacte:'Contacté', rdv_pris:'RDV pris', honore:'RDV honoré', perdu:'Perdu / Échec'};
 const STATUS_ORDER = ['transmis','contacte','rdv_pris','honore'];
-const CAMPAIGN_STATUS_LABELS = {a_valider:'À valider', file_attente:'En file d’attente', en_cours:'En cours', terminee:'Terminée', annulee:'Annulée'};
+const CAMPAIGN_STATUS_LABELS = {file_attente:'En file d’attente', en_cours:'En cours', terminee:'Terminée', annulee:'Annulée'};
 const CAMPAIGN_PRICING = {collecte:25, requalif:45};
 const CAMPAIGN_TYPE_LABELS = {collecte:'Collecte seule', requalif:'Collecte + requalification'};
 
@@ -1887,16 +1792,6 @@ function defaultOrderState(){
   notorieteAutoVolume: true, // le volume suit l'audience estimée par le ciblage, tant qu'on n'a pas ajusté le curseur à la main
   email: {senderName:'', senderEmail:'', subject:'', message:'', sendDate:null, sendTime:'09:00', wantsCrea:false, htmlFile:null},
   activation: {meta:false, google:false, tiktok:false, accounts:{meta:'', google:'', tiktok:''}},
-  // --- parcours par objectif (voir ORDER_FLOW_DEFAULTS) ---
-  objective:null,          // 'prospects' | 'trafic' | 'contacts'
-  flowScreen:'start',      // 'start' | 'config' | 'recap' | 'done'
-  advancedMode:false,      // true = configurateur détaillé (classique) ouvert depuis le parcours
-  relaunchOf:null,         // id de la campagne relancée
-  announce:'evenement',    // objectif trafic : ce qu'on annonce
-  campaignName:'',
-  startMode:'asap',        // 'asap' | 'date'
-  contactUsages:['sms'],
-  lastResult:null,
   };
 }
 let orderState = defaultOrderState();
@@ -1964,7 +1859,7 @@ function switchTab(tab){
   // Repartir d'un formulaire vierge quand on arrive sur "Commander une
   // campagne" depuis un autre onglet : sinon les concessions/ciblage/étape
   // d'une commande précédente (ou déjà lancée) restaient affichés.
-  if(tab==='order' && (activeTab!==tab || orderState.flowScreen==='done')) orderState = defaultOrderState();
+  if(tab==='order' && activeTab!==tab) orderState = defaultOrderState();
   activeTab = tab;
   document.querySelectorAll('.nav-btn, .tabbar button, .crm-link').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
   ['dashboard','leads','rdv','order','campaigns','billing','centers','support'].forEach(t=>{
@@ -2623,7 +2518,6 @@ function mechanicUnitConfig(){
 }
 
 function renderOrder(){
-  if(isObjectiveFlowActive()){ renderObjectiveOrder(); return; }
   const pro = proObj();
   const enabledMechanics = ['leads','location','notoriete'].filter(m=>pro.modules[m]);
   if(!enabledMechanics.includes(orderState.mechanic)) orderState.mechanic = enabledMechanics[0];
@@ -2797,11 +2691,7 @@ function renderOrder(){
       </div>`;
   }
 
-  const classicBar = orderFlowSettings(pro).flow==='objectif'
-    ? `<div class="of-classic-bar"><span>Configurateur détaillé</span><button type="button" class="of-back" onclick="ofLeaveAdvanced()">← Revenir au parcours simplifié</button></div>`
-    : '';
   document.getElementById('order-content').innerHTML = `
-    ${classicBar}
     <div class="order-grid">
       <div>
         ${stepperHtml}
@@ -4007,55 +3897,6 @@ function updateSplitValue(centerId, value, inputEl){
   document.getElementById('summary-total-amt').innerText = totalCost+' €';
 }
 
-// Construit la commande envoyée au serveur à partir d'orderState — partagé par
-// le configurateur classique et le parcours par objectif.
-function buildCampaignPayload(pro, cfg){
-  const startDate = orderState.startDate || defaultOrderDate();
-  const targetingSnapshot = orderState.mechanic!=='leads' ? JSON.parse(JSON.stringify(orderState.targeting)) : null;
-  const smsSchedule = (orderState.mechanic==='notoriete' && orderState.notorieteChannels.sms && pro.modules.smsSelfService)
-    ? {
-        mode: orderState.smsSendMode,
-        date: orderState.smsSendMode==='scheduled' ? (orderState.smsDate||defaultOrderDate()) : new Date().toISOString().slice(0,10),
-        time: orderState.smsSendMode==='scheduled' ? orderState.smsTime : new Date().toTimeString().slice(0,5),
-        sender: orderState.sms.sender, message: orderState.sms.message,
-        link: orderState.sms.shortLink || orderState.sms.link,
-      }
-    : null;
-  const emailOrder = (orderState.mechanic==='notoriete' && orderState.notorieteChannels.email && pro.modules.email)
-    ? {
-        senderName: orderState.email.senderName, senderEmail: orderState.email.senderEmail,
-        subject: orderState.email.subject, message: orderState.email.message,
-        sendDate: orderState.email.sendDate, sendTime: orderState.email.sendTime,
-        wantsCrea: orderState.email.wantsCrea, creaFee: orderState.email.wantsCrea ? EMAIL_CREA_PRICE : 0,
-        htmlFile: orderState.email.htmlFile,
-      }
-    : null;
-  const activationPlatformsChosen = orderState.mechanic==='notoriete'
-    ? ACTIVATION_PLATFORMS.filter(pl => orderState.activation[pl.key] && isActivationEnabled(pro,pl.key))
-    : [];
-  const activationOrder = activationPlatformsChosen.length
-    ? {
-        platforms: activationPlatformsChosen.map(pl=>pl.key),
-        accounts: {...orderState.activation.accounts},
-        cpmRate: accountPrices(pro).activationBase + accountPrices(pro).activationExtra*(activationPlatformsChosen.length-1),
-        minInvoice: accountPrices(pro).activationMin,
-        fee: activationFee(),
-        connected: false,
-      }
-    : null;
-  // Le serveur recalcule le montant à partir de ses propres tarifs — c'est
-  // lui la source de vérité, jamais le prix affiché côté client.
-  const payload = {
-    mechanic: orderState.mechanic, type: orderState.type, mode: 'leads',
-    centerIds: [...orderState.centerIds], startDate,
-    targeting: targetingSnapshot, smsSchedule, emailOrder, activationOrder,
-    notorieteChannels: orderState.notorieteChannels, activation: orderState.activation,
-    splitByCenter: orderState.splitByCenter, splitLeads: orderState.splitLeads,
-    targetLeads: cfg.val,
-  };
-  return {payload, smsSchedule, startDate};
-}
-
 let launchConfirmCode = null;
 function requestLaunchConfirmation(){
   const cfg = mechanicUnitConfig();
@@ -4096,7 +3937,7 @@ function confirmLaunch(){
     return;
   }
   closeModal('launch-confirm-overlay');
-  if(isObjectiveFlowActive()) submitObjectiveOrder(); else launchCampaign();
+  launchCampaign();
 }
 async function launchCampaign(){
   const btn = document.getElementById('launch-btn');
@@ -4104,7 +3945,50 @@ async function launchCampaign(){
   try{
     const pro = proObj();
     const cfg = mechanicUnitConfig();
-    const {payload, smsSchedule, startDate} = buildCampaignPayload(pro, cfg);
+    const price = cfg.price;
+    const startDate = orderState.startDate || defaultOrderDate();
+    const targetingSnapshot = orderState.mechanic!=='leads' ? JSON.parse(JSON.stringify(orderState.targeting)) : null;
+    const smsSchedule = (orderState.mechanic==='notoriete' && orderState.notorieteChannels.sms && pro.modules.smsSelfService)
+      ? {
+          mode: orderState.smsSendMode,
+          date: orderState.smsSendMode==='scheduled' ? (orderState.smsDate||defaultOrderDate()) : new Date().toISOString().slice(0,10),
+          time: orderState.smsSendMode==='scheduled' ? orderState.smsTime : new Date().toTimeString().slice(0,5),
+          sender: orderState.sms.sender, message: orderState.sms.message,
+          link: orderState.sms.shortLink || orderState.sms.link,
+        }
+      : null;
+    const emailOrder = (orderState.mechanic==='notoriete' && orderState.notorieteChannels.email && pro.modules.email)
+      ? {
+          senderName: orderState.email.senderName, senderEmail: orderState.email.senderEmail,
+          subject: orderState.email.subject, message: orderState.email.message,
+          sendDate: orderState.email.sendDate, sendTime: orderState.email.sendTime,
+          wantsCrea: orderState.email.wantsCrea, creaFee: orderState.email.wantsCrea ? EMAIL_CREA_PRICE : 0,
+          htmlFile: orderState.email.htmlFile,
+        }
+      : null;
+    const activationPlatformsChosen = orderState.mechanic==='notoriete'
+      ? ACTIVATION_PLATFORMS.filter(pl => orderState.activation[pl.key] && isActivationEnabled(pro,pl.key))
+      : [];
+    const activationOrder = activationPlatformsChosen.length
+      ? {
+          platforms: activationPlatformsChosen.map(pl=>pl.key),
+          accounts: {...orderState.activation.accounts},
+          cpmRate: accountPrices(pro).activationBase + accountPrices(pro).activationExtra*(activationPlatformsChosen.length-1),
+          minInvoice: accountPrices(pro).activationMin,
+          fee: activationFee(),
+          connected: false,
+        }
+      : null;
+    // Le serveur recalcule le montant à partir de ses propres tarifs — c'est
+    // lui la source de vérité, jamais le prix affiché côté client.
+    const payload = {
+      mechanic: orderState.mechanic, type: orderState.type, mode: 'leads',
+      centerIds: [...orderState.centerIds], startDate,
+      targeting: targetingSnapshot, smsSchedule, emailOrder, activationOrder,
+      notorieteChannels: orderState.notorieteChannels, activation: orderState.activation,
+      splitByCenter: orderState.splitByCenter, splitLeads: orderState.splitLeads,
+      targetLeads: cfg.val,
+    };
     const createdRows = await apiFetch('/campaigns', {method:'POST', body: JSON.stringify(payload)});
     createdRows.forEach(row => CAMPAIGNS.unshift(mapApiCampaign(row, currentPro())));
     const createdCount = createdRows.length;
@@ -4154,703 +4038,6 @@ async function launchCampaign(){
 }
 
 /* =========================================================
-   PARCOURS DE COMMANDE PAR OBJECTIF
-   ---------------------------------------------------------
-   Le concessionnaire part de ce qu'il veut obtenir (3 objectifs), puis
-   répond à quelques questions propres à cet objectif, vérifie, et valide.
-   Tout est écrit dans le même orderState que le configurateur classique :
-   on peut basculer vers le mode détaillé à tout moment sans rien perdre, et
-   la commande envoyée au serveur a exactement la même forme.
-   Textes, options et version du parcours sont réglables compte par compte
-   depuis l'admin (pro.orderSettings) — voir ORDER_FLOW_DEFAULTS.
-   ========================================================= */
-const ORDER_FLOW_DEFAULTS = {
-  flow: 'objectif',          // 'objectif' (nouveau parcours) | 'classique' (configurateur en étapes d'avant)
-  pageTitle: 'Quel est votre objectif ?',
-  showRelaunch: true,        // raccourci « Relancer ma dernière campagne »
-  requireCode: false,        // code de confirmation avant de valider la commande
-  defaultFormule: 'collecte',
-  cards: {
-    prospects: {tag:'Clé en main', title:'Alimenter mes vendeurs en nouveaux prospects',
-      subtitle:'Des personnes intéressées par un véhicule laissent leurs coordonnées, vos vendeurs les reçoivent aussitôt.',
-      checks:['Leads en temps réel','Ciblage premium','Option : qualification par téléphone']},
-    trafic: {tag:'Clé en main', title:'Générer du trafic en point de vente',
-      subtitle:'Événement, offre, nouveau modèle : faites venir les automobilistes de votre secteur.',
-      checks:['SMS, email ou réseaux','Ciblage local','Idéal pour un événement']},
-    contacts: {tag:'En autonomie', title:'Louer des contacts pour mes propres campagnes',
-      subtitle:'Vous recevez une liste de contacts ciblés et vous menez vous-même vos campagnes SMS, email ou téléphone.',
-      checks:['Vous gardez la main','Ciblage premium','Tarif au contact']},
-  },
-  formules: {
-    collecte: {title:'Leads directs', desc:'Vous recevez chaque demande dès qu’elle arrive, vos vendeurs la rappellent.',
-      checks:['Meilleur prix par lead','Réception en temps réel']},
-    requalif: {title:'Leads qualifiés par téléphone', desc:'Notre équipe appelle chaque contact avant de vous le transmettre.',
-      checks:['Gain de temps pour vos vendeurs','Intérêt vérifié']},
-  },
-  nextSteps: {
-    prospects: [
-      {title:'Validation par notre équipe', desc:'Nous vérifions votre commande et vous la confirmons par email.'},
-      {title:'Lancement de la collecte', desc:'À la date de démarrage choisie.'},
-      {title:'Vos prospects arrivent', desc:'Directement dans « Mes leads ».'},
-      {title:'Facturation', desc:'Votre facture est disponible dans « Facturation ».'},
-    ],
-    trafic: [
-      {title:'Validation par notre équipe', desc:'Nous vérifions votre message et votre ciblage.'},
-      {title:'Diffusion', desc:'À la date choisie, sur les canaux sélectionnés.'},
-      {title:'Bilan de la campagne', desc:'Les résultats de diffusion arrivent dans « Mes campagnes ».'},
-      {title:'Facturation', desc:'Votre facture est disponible dans « Facturation ».'},
-    ],
-    contacts: [
-      {title:'Validation par notre équipe', desc:'Nous vérifions votre commande et vous la confirmons par email.'},
-      {title:'Préparation du fichier', desc:'Extraction des contacts selon votre zone et votre profil.'},
-      {title:'Mise à disposition', desc:'Notre équipe vous transmet le fichier.'},
-      {title:'Facturation', desc:'Votre facture est disponible dans « Facturation ».'},
-    ],
-  },
-};
-const OBJECTIVE_KEYS = ['prospects','trafic','contacts'];
-const OBJECTIVE_MECHANIC = {prospects:'leads', trafic:'notoriete', contacts:'location'};
-const MECHANIC_OBJECTIVE = {leads:'prospects', notoriete:'trafic', location:'contacts'};
-const OBJECTIVE_TAG_CLASS = {prospects:'cle', trafic:'cle', contacts:'auto'};
-const TRAFIC_ANNOUNCES = {evenement:'Un événement', offre:'Une offre', modele:'Un nouveau modèle', concession:'Ma concession'};
-const TRAFIC_DATE_LABELS = {evenement:'Date de diffusion', offre:'Date de diffusion', modele:'Date de diffusion', concession:'Début de la diffusion'};
-// Canaux suggérés selon ce qu'on annonce : SMS/email quand c'est daté ou urgent
-// (lu tout de suite), réseaux/Google quand c'est dans la durée (répétition).
-const TRAFIC_CHANNEL_SUGGEST = {evenement:['sms'], offre:['sms','email'], modele:['sms','meta'], concession:['meta','google']};
-const CONTACT_USAGES = {sms:'SMS', email:'Email', tel:'Téléphone'};
-const OF_CHECK_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
-
-function ofEsc(v){
-  if(v==null) return '';
-  return String(v).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-function ofFmt(n){ return Math.round(n).toLocaleString('fr-FR'); }
-function ofDateLabel(iso){
-  if(!iso) return '—';
-  return new Date(iso+'T12:00:00').toLocaleDateString('fr-FR',{day:'numeric', month:'long', year:'numeric'});
-}
-function todayIso(){ return new Date().toISOString().slice(0,10); }
-function isoInDays(n){ const d=new Date(); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
-
-// Réglages effectifs du parcours pour un compte : les valeurs saisies dans
-// l'admin priment, sinon les valeurs par défaut ci-dessus.
-function orderFlowSettings(pro){
-  const s = (pro && pro.orderSettings) || {};
-  const d = ORDER_FLOW_DEFAULTS;
-  const cleanList = (arr, fallback)=> Array.isArray(arr) ? arr.map(x=>String(x||'').trim()).filter(Boolean) : fallback;
-  const card = k => {
-    const o = (s.cards||{})[k] || {};
-    return {
-      tag: o.tag!==undefined ? o.tag : d.cards[k].tag,
-      title: o.title || d.cards[k].title,
-      subtitle: o.subtitle!==undefined ? o.subtitle : d.cards[k].subtitle,
-      checks: cleanList(o.checks, d.cards[k].checks),
-    };
-  };
-  const formule = k => {
-    const o = (s.formules||{})[k] || {};
-    return {
-      title: o.title || d.formules[k].title,
-      desc: o.desc!==undefined ? o.desc : d.formules[k].desc,
-      checks: cleanList(o.checks, d.formules[k].checks),
-    };
-  };
-  const steps = k => {
-    const arr = (s.nextSteps||{})[k];
-    if(!Array.isArray(arr) || !arr.length) return d.nextSteps[k];
-    return arr.filter(x=>x && x.title);
-  };
-  return {
-    flow: s.flow==='classique' ? 'classique' : 'objectif',
-    pageTitle: s.pageTitle || d.pageTitle,
-    showRelaunch: s.showRelaunch!==undefined ? !!s.showRelaunch : d.showRelaunch,
-    requireCode: s.requireCode!==undefined ? !!s.requireCode : d.requireCode,
-    defaultFormule: s.defaultFormule==='requalif' ? 'requalif' : 'collecte',
-    cards: {prospects:card('prospects'), trafic:card('trafic'), contacts:card('contacts')},
-    formules: {collecte:formule('collecte'), requalif:formule('requalif')},
-    nextSteps: {prospects:steps('prospects'), trafic:steps('trafic'), contacts:steps('contacts')},
-  };
-}
-function isObjectiveFlowActive(){
-  const pro = proObj();
-  return !!pro && orderFlowSettings(pro).flow==='objectif' && !orderState.advancedMode;
-}
-function availableObjectives(pro){
-  return OBJECTIVE_KEYS.filter(k => pro.modules[OBJECTIVE_MECHANIC[k]]);
-}
-
-/* ---- Canaux de diffusion (objectif « trafic ») ---- */
-function availableTraficChannels(pro){
-  const list = [];
-  if(pro.modules.smsSelfService) list.push({key:'sms', label:'SMS'});
-  if(pro.modules.email) list.push({key:'email', label:'Email'});
-  ACTIVATION_PLATFORMS.filter(pl=>isActivationEnabled(pro,pl.key)).forEach(pl=>list.push({key:pl.key, label:pl.label}));
-  return list;
-}
-function isTraficChannelOn(key){
-  return (key==='sms'||key==='email') ? !!orderState.notorieteChannels[key] : !!orderState.activation[key];
-}
-function applySuggestedChannels(pro){
-  const avail = availableTraficChannels(pro).map(c=>c.key);
-  const wanted = (TRAFIC_CHANNEL_SUGGEST[orderState.announce]||[]).filter(k=>avail.includes(k));
-  orderState.notorieteChannels = {sms:wanted.includes('sms'), email:wanted.includes('email')};
-  ['meta','google','tiktok'].forEach(k=>{ orderState.activation[k] = wanted.includes(k); });
-  ensureNotorieteChannelDefaults(pro); // rien de suggéré n'est disponible : premier canal disponible
-}
-
-/* ---- Profil premium (catalogue de ciblage du compte) ---- */
-function activePresetLabel(pro){
-  const p = activeCatalog(pro).find(x=>isPresetActive(x));
-  if(p) return p.label;
-  const t = orderState.targeting;
-  const custom = t.genre.length || t.age.length || t.csp.length || (t.habitat||[]).length || t.vehicleIntent.length || t.marketSegment.length || t.campaignKeyword || t.geoMode!=='concessions';
-  return custom ? 'Ciblage personnalisé' : 'Tous profils';
-}
-function ofPickPreset(id){
-  const keepGeo = {geoMode:orderState.targeting.geoMode, geoRegions:orderState.targeting.geoRegions, customAddress:orderState.targeting.customAddress};
-  orderState.targeting = Object.assign(emptyTargeting(), keepGeo);
-  if(id) applyPreset(id); else renderOrder();
-}
-
-/* ---- Navigation dans le parcours ---- */
-function ofPickObjective(key){
-  const pro = proObj();
-  const st = orderFlowSettings(pro);
-  const fresh = defaultOrderState();
-  orderState = Object.assign(fresh, {objective:key, flowScreen:'config', mechanic:OBJECTIVE_MECHANIC[key]});
-  if(key==='prospects'){ orderState.type = st.defaultFormule; orderState.leadsVal = 40; }
-  if(key==='trafic'){
-    orderState.notorieteAutoVolume = false;
-    orderState.notorieteVal = 10000;
-    orderState.smsSendMode = 'scheduled';
-    orderState.smsDate = isoInDays(7);
-    applySuggestedChannels(pro);
-  }
-  if(key==='contacts'){ orderState.contactsVal = 5000; }
-  renderOrder(); window.scrollTo(0,0);
-}
-function ofGo(screen){
-  if(screen==='recap' && !ofValidateConfig()) return;
-  orderState.flowScreen = screen;
-  renderOrder(); window.scrollTo(0,0);
-}
-function ofBackToStart(){ orderState = defaultOrderState(); renderOrder(); window.scrollTo(0,0); }
-function ofOpenAdvanced(){
-  orderState.advancedMode = true;
-  orderState.currentStep = 1;
-  if(orderState.mechanic==='notoriete') orderState.notorieteAutoVolume = false;
-  renderOrder(); window.scrollTo(0,0);
-}
-function ofLeaveAdvanced(){
-  orderState.advancedMode = false;
-  if(!orderState.objective) orderState.objective = MECHANIC_OBJECTIVE[orderState.mechanic] || null;
-  orderState.flowScreen = orderState.objective ? 'config' : 'start';
-  renderOrder(); window.scrollTo(0,0);
-}
-function ofValidateConfig(){
-  const pro = proObj();
-  if(orderState.objective==='trafic'){
-    const avail = availableTraficChannels(pro);
-    if(avail.length && !avail.some(c=>isTraficChannelOn(c.key))){ showToast('Choisissez au moins un canal de diffusion.'); return false; }
-    if(orderState.notorieteChannels.sms && pro.modules.smsSelfService && !orderState.sms.message.trim()){
-      showToast('Rédigez le message de votre SMS avant de continuer.');
-      const el = document.getElementById('of-message'); if(el) el.focus();
-      return false;
-    }
-  }
-  if(orderState.objective==='contacts' && !orderState.contactUsages.length){ showToast('Indiquez au moins un usage prévu.'); return false; }
-  return true;
-}
-
-/* ---- Saisies ---- */
-function ofSetLeads(v){ const n = parseInt(v); if(!isNaN(n)) orderState.leadsVal = Math.max(5, n); renderOrder(); }
-function ofStepLeads(delta){ orderState.leadsVal = Math.max(5, (orderState.leadsVal||0) + delta); renderOrder(); }
-function ofSetType(t){ orderState.type = t; renderOrder(); }
-function ofSetVolume(v){ orderState.notorieteVal = v; orderState.notorieteAutoVolume = false; renderOrder(); }
-function ofSetContacts(v){ orderState.contactsVal = v; renderOrder(); }
-function ofSetAnnounce(k){ orderState.announce = k; applySuggestedChannels(proObj()); renderOrder(); }
-function ofToggleChannel(k){ toggleChannelCard(k); }
-function ofToggleCenter(id){ setOrderCenter(id); }
-function ofSetStartMode(m){ orderState.startMode = m; if(m==='date' && !orderState.startDate) orderState.startDate = isoInDays(2); renderOrder(); }
-function ofSetStartDate(v){ if(v){ orderState.startDate = v; renderOrder(); } }
-function ofSetTraficDate(v){
-  if(!v) return;
-  orderState.smsDate = v;
-  renderOrder();
-}
-function ofToggleUsage(k){
-  const i = orderState.contactUsages.indexOf(k);
-  if(i>-1) orderState.contactUsages.splice(i,1); else orderState.contactUsages.push(k);
-  renderOrder();
-}
-function ofSetCampaignName(v){ orderState.campaignName = v.slice(0,120); }
-function ofSetSender(v){ updateSmsSender(v.replace(/[^A-Za-z0-9 ]/g,'')); const el=document.getElementById('of-sender'); if(el) el.value = orderState.sms.sender; }
-function ofSetMessage(v){
-  orderState.sms.message = v;
-  orderState.email.message = v;
-  const el = document.getElementById('of-msg-count');
-  if(el) el.innerText = ofMessageCountText();
-}
-function ofToggleEmailCrea(checked){ toggleEmailCrea(checked); }
-function ofMessageCountText(){
-  const msg = orderState.sms.message || '';
-  const hasStop = /stop\s*(au\s*)?36200/i.test(msg);
-  const info = smsCountInfo(msg.trim() + (hasStop ? '' : ' STOP au 36200'));
-  return `${info.effectiveLen} / ${info.limit} caractères · ${info.segments} SMS${info.segments>1?'s':''} — la mention « STOP au 36200 » est ajoutée automatiquement.`;
-}
-
-/* ---- Relancer une campagne passée ---- */
-function lastRelaunchableCampaign(){
-  return myCampaigns()
-    .filter(c => c.status!=='annulee' && c.status!=='a_valider' && MECHANIC_OBJECTIVE[c.mechanic||'leads'])
-    .sort((a,b)=>(b.invoiceDate||b.startDate||'').localeCompare(a.invoiceDate||a.startDate||''))[0] || null;
-}
-function prefillOrderFromCampaign(c){
-  const pro = proObj();
-  const s = defaultOrderState();
-  s.mechanic = c.mechanic || 'leads';
-  s.objective = MECHANIC_OBJECTIVE[s.mechanic];
-  s.relaunchOf = c.id;
-  s.centerIds = (c.centerIds||[]).filter(id=>pro.centers.some(x=>x.id===id));
-  s.targeting = Object.assign(emptyTargeting(), JSON.parse(JSON.stringify(c.targeting||{})));
-  s.campaignName = c.name || '';
-  if(s.mechanic==='leads'){
-    s.type = c.type || 'collecte';
-    const unit = accountPrices(pro)[s.type] || 30;
-    s.leadsVal = c.targetLeads || (c.budget ? Math.round(c.budget/unit) : 40);
-  } else if(s.mechanic==='location'){
-    s.contactsVal = c.targetLeads || 1000;
-  } else {
-    s.notorieteVal = c.targetLeads || 10000;
-    s.notorieteAutoVolume = false;
-    const sms = c.smsSchedule || c.smsResult;
-    const eo = c.emailOrder || (c.emailResult ? {senderName:c.emailResult.senderName, senderEmail:c.emailResult.senderEmail, subject:c.emailResult.subject} : null);
-    s.notorieteChannels = {sms:!!sms, email:!!eo};
-    (c.activationOrder && c.activationOrder.platforms || []).forEach(k=>{ s.activation[k] = true; });
-    if(c.activationOrder && c.activationOrder.accounts) Object.assign(s.activation.accounts, c.activationOrder.accounts);
-    if(sms){ s.sms.sender = sms.sender || ''; s.sms.message = sms.message || ''; s.sms.link = sms.link || ''; }
-    if(eo){ Object.assign(s.email, {senderName:eo.senderName||'', senderEmail:eo.senderEmail||'', subject:eo.subject||'', message:eo.message||'', wantsCrea:!!eo.wantsCrea}); }
-    if(!s.email.message) s.email.message = s.sms.message;
-    s.smsSendMode = 'scheduled';
-    s.smsDate = isoInDays(7);
-  }
-  return s;
-}
-function relaunchCampaign(id, edit){
-  const c = findCampaign(id);
-  if(!c) return;
-  closeModal('campaign-overlay');
-  if(activeTab!=='order') switchTab('order');
-  orderState = prefillOrderFromCampaign(c);
-  if(isObjectiveFlowActive()){
-    orderState.flowScreen = edit ? 'config' : 'recap';
-  } else {
-    orderState.currentStep = 99; // configurateur classique : on arrive directement sur la dernière étape
-  }
-  renderOrder(); window.scrollTo(0,0);
-}
-
-/* ---- Chiffrage (mêmes règles que le configurateur classique) ---- */
-function ofComputeTotal(){
-  const cfg = mechanicUnitConfig();
-  return {cfg, total: Math.round(cfg.val*cfg.price) + emailCreaFee() + activationFee()};
-}
-function ofSummaryRows(pro){
-  const st = orderFlowSettings(pro);
-  const {cfg} = ofComputeTotal();
-  const zone = centerNamesList(orderState.centerIds);
-  const profil = activePresetLabel(pro);
-  const startLabel = orderState.startMode==='date' ? ofDateLabel(orderState.startDate) : 'Dès que possible';
-  if(orderState.objective==='prospects'){
-    return [
-      ['Réception', st.formules[orderState.type].title],
-      ['Volume', `${ofFmt(cfg.val)} leads`],
-      [orderState.centerIds.length>1?'Concessions':'Concession', zone],
-      ['Profil', profil],
-      ['Démarrage', startLabel],
-    ];
-  }
-  if(orderState.objective==='trafic'){
-    const channels = availableTraficChannels(pro).filter(c=>isTraficChannelOn(c.key)).map(c=>c.label);
-    const rows = [];
-    if(orderState.campaignName.trim()) rows.push(['Opération', orderState.campaignName.trim()]);
-    rows.push(['Annonce', TRAFIC_ANNOUNCES[orderState.announce]]);
-    rows.push([TRAFIC_DATE_LABELS[orderState.announce], ofDateLabel(orderState.smsDate)]);
-    rows.push(['Zone', zone]);
-    rows.push(['Profil', profil]);
-    if(channels.length) rows.push(['Canaux', channels.join(', ')]);
-    rows.push(['Personnes touchées', ofFmt(cfg.val)]);
-    return rows;
-  }
-  return [
-    ['Volume', `${ofFmt(cfg.val)} contacts`],
-    ['Zone', zone],
-    ['Profil', profil],
-    ['Usage prévu', orderState.contactUsages.map(k=>CONTACT_USAGES[k]).join(', ') || '—'],
-    ['Démarrage', startLabel],
-  ];
-}
-function ofRowsHtml(rows){
-  return rows.map(([k,v])=>`<div class="of-row"><span class="k">${ofEsc(k)}</span><span class="v">${ofEsc(v)}</span></div>`).join('');
-}
-function ofEstimateNote(){
-  if(orderState.objective==='prospects') return 'Estimation indicative : le montant final dépend du nombre de leads réellement livrés.';
-  if(orderState.objective==='trafic') return 'Estimation indicative, selon l’audience réellement disponible au moment de la diffusion.';
-  return 'Estimation indicative, selon le nombre de contacts disponibles pour votre ciblage.';
-}
-
-/* ---- Rendu ---- */
-function renderObjectiveOrder(){
-  const pro = proObj();
-  if(!orderState.centerIds.length || !orderState.centerIds.every(id=>pro.centers.some(c=>c.id===id))){
-    orderState.centerIds = [pro.centers[0].id];
-  }
-  const objectives = availableObjectives(pro);
-  if(orderState.objective && !objectives.includes(orderState.objective)){ orderState.objective = null; orderState.flowScreen = 'start'; }
-  if(orderState.objective) orderState.mechanic = OBJECTIVE_MECHANIC[orderState.objective];
-  if(orderState.mechanic==='notoriete') ensureNotorieteChannelDefaults(pro);
-
-  let html;
-  if(orderState.flowScreen==='done') html = ofDoneHtml(pro);
-  else if(orderState.flowScreen==='recap' && orderState.objective) html = ofRecapHtml(pro);
-  else if(orderState.flowScreen==='config' && orderState.objective) html = ofConfigHtml(pro);
-  else html = ofStartHtml(pro, objectives);
-  document.getElementById('order-content').innerHTML = `<div class="of-wrap">${html}</div>`;
-}
-
-function ofStartHtml(pro, objectives){
-  const st = orderFlowSettings(pro);
-  const last = st.showRelaunch ? lastRelaunchableCampaign() : null;
-  let relaunch = '';
-  if(last){
-    const target = campaignTarget(last);
-    const unit = campaignUnitLabel(last, target);
-    const progress = (last.status==='en_cours' || last.status==='terminee') && target ? ` · ${ofFmt(last.generated)} ${last.mechanic==='notoriete'?'touchés':'livrés'} sur ${ofFmt(target)}` : '';
-    relaunch = `
-      <div class="of-relaunch">
-        <div class="of-relaunch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></div>
-        <div class="of-relaunch-text">
-          <span class="of-relaunch-title">Relancer ma dernière campagne</span>
-          <span class="of-relaunch-sub">${ofEsc(last.id)} · ${campaignTitleHtml(last)} · ${ofFmt(target)} ${ofEsc(unit)} · ${ofEsc(centerNamesList(last.centerIds))}${progress}</span>
-        </div>
-        <span class="of-relaunch-price">${ofFmt(campaignCost(last))} €</span>
-        <button type="button" class="of-btn ghost" onclick="relaunchCampaign('${last.id}', true)">Modifier</button>
-        <button type="button" class="of-btn primary" onclick="relaunchCampaign('${last.id}', false)">Relancer à l'identique</button>
-      </div>`;
-  }
-  const cards = objectives.map(k=>{
-    const c = st.cards[k];
-    return `
-      <button type="button" class="of-card" onclick="ofPickObjective('${k}')">
-        ${c.tag ? `<span class="of-tag ${OBJECTIVE_TAG_CLASS[k]}">${ofEsc(c.tag)}</span>` : ''}
-        <span class="of-card-title">${ofEsc(c.title)}</span>
-        ${c.subtitle ? `<span class="of-card-sub">${ofEsc(c.subtitle)}</span>` : ''}
-        ${c.checks.length ? `<span class="of-checks">${c.checks.map(x=>`<span class="of-check">${OF_CHECK_ICON}${ofEsc(x)}</span>`).join('')}</span>` : ''}
-      </button>`;
-  }).join('');
-  return `
-    <h2 class="of-h">${ofEsc(st.pageTitle)}</h2>
-    ${relaunch}
-    ${objectives.length ? `<div class="of-cards n${Math.min(objectives.length,3)}">${cards}</div>` : `<div class="empty-inline">Aucune mécanique n'est activée pour votre compte. Contactez l'équipe AutoLead.</div>`}`;
-}
-
-function ofSectionCenters(pro, question){
-  if(pro.centers.length<2) return '';
-  return `
-    <section class="of-section">
-      <h3>${question}</h3>
-      <div class="of-chips">
-        ${pro.centers.map(c=>`<button type="button" class="of-chip ${orderState.centerIds.includes(c.id)?'on':''}" aria-pressed="${orderState.centerIds.includes(c.id)}" onclick="ofToggleCenter('${c.id}')">${ofEsc(c.name)}</button>`).join('')}
-      </div>
-    </section>`;
-}
-function ofSectionProfile(pro){
-  if(!pro.modules.vehicleTargeting) return '';
-  const catalog = activeCatalog(pro);
-  if(!catalog.length) return '';
-  const current = activePresetLabel(pro);
-  return `
-    <section class="of-section">
-      <div class="of-section-head"><h3>Quel profil de clients ?</h3><span class="of-hint">Vos ciblages premium</span></div>
-      <div class="of-chips">
-        <button type="button" class="of-chip ${current==='Tous profils'?'on':''}" onclick="ofPickPreset(null)">Tous profils</button>
-        ${catalog.map(p=>`<button type="button" class="of-chip ${isPresetActive(p)?'on':''}" aria-pressed="${isPresetActive(p)}" onclick="ofPickPreset('${ofEsc(p.id)}')">${ofEsc(p.label)}</button>`).join('')}
-        ${current==='Ciblage personnalisé' ? `<button type="button" class="of-chip on">Ciblage personnalisé</button>` : ''}
-      </div>
-    </section>`;
-}
-function ofSectionStart(){
-  return `
-    <section class="of-section">
-      <h3>Quand démarrer ?</h3>
-      <div class="of-inline">
-        <div class="of-chips">
-          <button type="button" class="of-chip ${orderState.startMode!=='date'?'on':''}" onclick="ofSetStartMode('asap')">Dès que possible</button>
-          <button type="button" class="of-chip ${orderState.startMode==='date'?'on':''}" onclick="ofSetStartMode('date')">Choisir une date</button>
-        </div>
-        ${orderState.startMode==='date' ? `<label class="of-field">Date<input type="date" value="${orderState.startDate||''}" min="${todayIso()}" onchange="ofSetStartDate(this.value)"></label>` : ''}
-      </div>
-    </section>`;
-}
-function ofPresetChips(values, current, max, setter, unit){
-  const opts = values.filter(v=>v<max).map(v=>({v, label:ofFmt(v)}));
-  opts.push({v:max, label:`Toute l’audience (${ofFmt(max)})`});
-  return `<div class="of-chips">${opts.map(o=>`<button type="button" class="of-chip ${current===o.v?'on':''}" onclick="${setter}(${o.v})">${o.label}</button>`).join('')}</div>`;
-}
-
-function ofConfigHtml(pro){
-  const st = orderFlowSettings(pro);
-  const prices = accountPrices(pro);
-  const {cfg, total} = ofComputeTotal();
-  const obj = orderState.objective;
-  let sections = '';
-
-  if(obj==='prospects'){
-    const presets = [20,40,60,100].filter(v=>v<=cfg.max);
-    sections += `
-      <section class="of-section">
-        <h3>Combien de prospects voulez-vous ?</h3>
-        <div class="of-qty-row">
-          <div class="of-stepper">
-            <button type="button" aria-label="Moins de leads" onclick="ofStepLeads(-5)">−</button>
-            <div class="of-stepper-val"><input type="number" aria-label="Nombre de leads" min="5" max="${cfg.max}" step="5" value="${cfg.val}" onchange="ofSetLeads(this.value)"><span>leads</span></div>
-            <button type="button" aria-label="Plus de leads" onclick="ofStepLeads(5)">+</button>
-          </div>
-          <div class="of-chips">${presets.map(v=>`<button type="button" class="of-chip ${cfg.val===v?'on':''}" onclick="ofSetLeads(${v})">${v}</button>`).join('')}</div>
-        </div>
-        ${cfg.val>=cfg.max ? `<div class="of-hint">Volume maximum conseillé pour la zone de vos concessions sélectionnées.</div>` : ''}
-      </section>
-      <section class="of-section">
-        <h3>Comment voulez-vous les recevoir ?</h3>
-        <div class="of-options">
-          ${['collecte','requalif'].map(k=>{
-            const f = st.formules[k];
-            const on = orderState.type===k;
-            return `
-            <button type="button" class="of-option ${on?'on':''}" aria-pressed="${on}" onclick="ofSetType('${k}')">
-              <span class="of-option-title">${ofEsc(f.title)}</span>
-              ${f.desc ? `<span class="of-option-desc">${ofEsc(f.desc)}</span>` : ''}
-              ${f.checks.length ? `<span class="of-checks" style="border:none; padding:0; margin:0;">${f.checks.map(x=>`<span class="of-check">${OF_CHECK_ICON}${ofEsc(x)}</span>`).join('')}</span>` : ''}
-              <span class="of-option-foot"><span class="u">${prices[k]} €/lead</span><span class="t">${ofFmt(cfg.val*prices[k])} €</span></span>
-            </button>`;
-          }).join('')}
-        </div>
-      </section>
-      ${ofSectionCenters(pro, 'Pour quelle concession ?')}
-      ${ofSectionProfile(pro)}
-      ${ofSectionStart()}`;
-  }
-
-  if(obj==='trafic'){
-    const channels = availableTraficChannels(pro);
-    const suggested = (TRAFIC_CHANNEL_SUGGEST[orderState.announce]||[]).map(k=>(channels.find(c=>c.key===k)||{}).label).filter(Boolean);
-    const smsOn = orderState.notorieteChannels.sms && pro.modules.smsSelfService;
-    const emailOn = orderState.notorieteChannels.email && pro.modules.email;
-    const minDate = emailOn ? minEmailSendDate(orderState.email.wantsCrea) : todayIso();
-    if(!orderState.smsDate || orderState.smsDate < minDate) orderState.smsDate = minDate;
-    sections += `
-      <section class="of-section">
-        <h3>Que voulez-vous annoncer ?</h3>
-        <div class="of-chips">
-          ${Object.keys(TRAFIC_ANNOUNCES).map(k=>`<button type="button" class="of-chip ${orderState.announce===k?'on':''}" onclick="ofSetAnnounce('${k}')">${TRAFIC_ANNOUNCES[k]}</button>`).join('')}
-        </div>
-        <div class="of-inline">
-          <label class="of-field" style="flex:1; min-width:220px;">Nom de votre opération (facultatif)
-            <input type="text" maxlength="120" value="${ofEsc(orderState.campaignName)}" placeholder="Ex. Portes ouvertes d'octobre" oninput="ofSetCampaignName(this.value)">
-          </label>
-          <label class="of-field">${TRAFIC_DATE_LABELS[orderState.announce]}
-            <input type="date" value="${orderState.smsDate}" min="${minDate}" onchange="ofSetTraficDate(this.value)">
-          </label>
-        </div>
-      </section>
-      ${channels.length ? `
-      <section class="of-section">
-        <div class="of-section-head"><h3>Sur quels canaux ?</h3>${suggested.length ? `<span class="of-hint">Conseillé pour ${TRAFIC_ANNOUNCES[orderState.announce].toLowerCase()} : ${suggested.join(' + ')}</span>` : ''}</div>
-        <div class="of-chips">
-          ${channels.map(c=>`<button type="button" class="of-chip ${isTraficChannelOn(c.key)?'on':''}" aria-pressed="${isTraficChannelOn(c.key)}" onclick="ofToggleChannel('${c.key}')">${ofEsc(c.label)}</button>`).join('')}
-        </div>
-        ${activationFeeIsFloored() ? `<div class="of-hint">Réseaux sociaux / Google : minimum de facturation de ${prices.activationMin} € appliqué.</div>` : ''}
-      </section>` : ''}
-      ${ofSectionCenters(pro, 'Autour de quelle concession ?')}
-      ${ofSectionProfile(pro)}
-      <section class="of-section">
-        <div class="of-section-head"><h3>Combien de personnes toucher ?</h3><span class="of-hint">≈ ${ofFmt(cfg.max)} personnes correspondent dans votre zone</span></div>
-        ${ofPresetChips([2000,5000,10000,20000,50000], cfg.val, cfg.max, 'ofSetVolume')}
-      </section>
-      ${(smsOn || emailOn) ? `
-      <section class="of-section">
-        <h3>Votre message</h3>
-        ${smsOn ? `
-        <label class="of-field" style="max-width:320px;">Expéditeur du SMS (11 caractères max)
-          <input id="of-sender" type="text" maxlength="11" value="${ofEsc(orderState.sms.sender)}" placeholder="Ex. HYUNDAI" oninput="ofSetSender(this.value)">
-        </label>` : ''}
-        <label class="of-field">${smsOn ? 'Texte du SMS' : 'Contenu souhaité pour l’email'}${smsOn && emailOn ? ' (repris comme brief pour l’email)' : ''}
-          <textarea id="of-message" oninput="ofSetMessage(this.value)" placeholder="Ex. Portes ouvertes samedi chez Hyundai Vialle : essais et offres exclusives toute la journée !">${ofEsc(orderState.sms.message || orderState.email.message)}</textarea>
-        </label>
-        ${smsOn ? `<div class="of-hint" id="of-msg-count">${ofMessageCountText()}</div>` : ''}
-        ${emailOn ? `
-        <label class="channel-checkbox" style="font-size:13.5px;">
-          <input type="checkbox" ${orderState.email.wantsCrea?'checked':''} onchange="ofToggleEmailCrea(this.checked)">
-          Faire réaliser la création de l’email par notre équipe <strong>(+${prices.emailCrea} €)</strong>
-        </label>` : ''}
-      </section>` : ''}`;
-  }
-
-  if(obj==='contacts'){
-    sections += `
-      <section class="of-section">
-        <div class="of-section-head"><h3>Combien de contacts ?</h3><span class="of-hint">≈ ${ofFmt(cfg.max)} contacts disponibles pour ce ciblage</span></div>
-        ${ofPresetChips([1000,2500,5000,10000], cfg.val, cfg.max, 'ofSetContacts')}
-      </section>
-      <section class="of-section">
-        <h3>Pour quelles campagnes ?</h3>
-        <div class="of-chips">
-          ${Object.keys(CONTACT_USAGES).map(k=>`<button type="button" class="of-chip ${orderState.contactUsages.includes(k)?'on':''}" aria-pressed="${orderState.contactUsages.includes(k)}" onclick="ofToggleUsage('${k}')">${CONTACT_USAGES[k]}</button>`).join('')}
-        </div>
-      </section>
-      ${ofSectionCenters(pro, 'Autour de quelle concession ?')}
-      ${ofSectionProfile(pro)}
-      ${ofSectionStart()}`;
-  }
-
-  return `
-    <button type="button" class="of-back" onclick="ofBackToStart()">← Changer d'objectif</button>
-    <div style="display:flex; flex-direction:column; gap:6px;">
-      <span class="of-step-label">${orderState.relaunchOf ? `Relance de ${ofEsc(orderState.relaunchOf)} · étape 1 sur 2` : 'Étape 1 sur 2'}</span>
-      <h2 class="of-h">${ofEsc(st.cards[obj].title)}</h2>
-    </div>
-    <div class="of-layout">
-      <div class="of-col">
-        ${sections}
-        <button type="button" class="of-advanced" onclick="ofOpenAdvanced()">Besoin d'un ciblage plus fin ? Ouvrir le configurateur détaillé →</button>
-      </div>
-      <aside class="of-summary">
-        <h3>Votre commande</h3>
-        <div class="of-rows">${ofRowsHtml(ofSummaryRows(pro))}</div>
-        <div class="of-total"><span class="k">Budget estimé</span><span class="v">${ofFmt(total)} €</span></div>
-        <button type="button" class="of-btn primary" style="width:100%; min-height:48px;" onclick="ofGo('recap')">Continuer</button>
-        <div class="of-note">${ofEstimateNote()}</div>
-      </aside>
-    </div>`;
-}
-
-function ofRecapHtml(pro){
-  const st = orderFlowSettings(pro);
-  const {total} = ofComputeTotal();
-  const steps = st.nextSteps[orderState.objective] || [];
-  const approval = !!pro.modules.orderApproval;
-  return `
-    <button type="button" class="of-back" onclick="ofGo('config')">← Modifier</button>
-    <div style="display:flex; flex-direction:column; gap:6px;">
-      <span class="of-step-label">${orderState.relaunchOf ? `Relance de ${ofEsc(orderState.relaunchOf)} · étape 2 sur 2` : 'Étape 2 sur 2'}</span>
-      <h2 class="of-h">Vérifiez et validez</h2>
-    </div>
-    <div class="of-recap">
-      <div class="of-section" style="padding:24px;">
-        <h3>${ofEsc(st.cards[orderState.objective].title)}</h3>
-        <div class="of-rows" style="font-size:14px;">${ofRowsHtml(ofSummaryRows(pro))}</div>
-        <div class="of-total"><span class="k">Budget estimé</span><span class="v">${ofFmt(total)} €</span></div>
-        <div class="of-note">${ofEstimateNote()}</div>
-      </div>
-      ${steps.length ? `
-      <div class="of-section" style="padding:24px; gap:16px;">
-        <h3>Ce qui se passe ensuite</h3>
-        ${steps.map((s,i)=>`
-          <div class="of-next">
-            <span class="of-next-num">${i+1}</span>
-            <div><div class="of-next-t">${ofEsc(s.title)}</div>${s.desc ? `<div class="of-next-d">${ofEsc(s.desc)}</div>` : ''}</div>
-          </div>`).join('')}
-      </div>` : ''}
-    </div>
-    <div class="of-actions">
-      ${approval ? `<button type="button" class="of-btn ghost" id="of-approval-btn" onclick="ofSubmit(true)">Envoyer pour validation à mon directeur</button>` : ''}
-      <button type="button" class="of-btn primary" id="of-submit-btn" style="min-height:50px; padding:0 26px;" onclick="ofSubmit(false)">Valider la commande</button>
-    </div>`;
-}
-
-function ofDoneHtml(pro){
-  const r = orderState.lastResult || {ids:[], total:0, approval:false};
-  return `
-    <div class="of-done">
-      <div class="of-done-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1F5A38" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>
-      <h2 class="of-h" style="font-size:24px;">${r.approval ? 'Commande en attente de validation' : 'Commande envoyée'}</h2>
-      <p>${r.approval
-        ? 'Elle apparaît dans « Mes campagnes » avec le statut « À valider ». Votre directeur peut la valider depuis son accès au portail ; elle partira ensuite chez notre équipe.'
-        : 'Votre commande est enregistrée et passe chez notre équipe. Vous pouvez la suivre à tout moment dans « Mes campagnes ».'}</p>
-      <div class="of-done-ref">
-        <span><span style="color:var(--muted);">Référence </span><strong>${ofEsc(r.ids.join(', '))}</strong></span>
-        <span><span style="color:var(--muted);">Budget </span><strong>${ofFmt(r.total)} €</strong></span>
-      </div>
-      <div class="of-actions" style="justify-content:center;">
-        <button type="button" class="of-btn ghost" onclick="ofBackToStart()">Nouvelle commande</button>
-        <button type="button" class="of-btn dark" onclick="switchTab('campaigns')">Voir mes campagnes</button>
-      </div>
-    </div>`;
-}
-
-/* ---- Envoi de la commande ---- */
-let ofPendingApproval = false;
-function ofSubmit(approval){
-  ofPendingApproval = !!approval;
-  if(orderFlowSettings(proObj()).requireCode){ requestLaunchConfirmation(); return; }
-  submitObjectiveOrder();
-}
-async function submitObjectiveOrder(){
-  const approval = ofPendingApproval;
-  const btn = document.getElementById(approval ? 'of-approval-btn' : 'of-submit-btn');
-  const label = btn ? btn.innerHTML : '';
-  if(btn){ btn.classList.add('loading'); btn.disabled = true; btn.innerHTML = wheelSpinnerHtml; }
-  try{
-    const pro = proObj();
-    const cfg = mechanicUnitConfig();
-    // Dates : « dès que possible » = aujourd'hui ; trafic = la date de diffusion choisie.
-    if(orderState.objective==='trafic'){
-      orderState.startDate = orderState.smsDate;
-      orderState.email.sendDate = orderState.smsDate;
-      if(!orderState.email.message) orderState.email.message = orderState.sms.message;
-      if(!orderState.email.senderName) orderState.email.senderName = pro.portalName || pro.name;
-    } else {
-      orderState.startDate = orderState.startMode==='date' && orderState.startDate ? orderState.startDate : todayIso();
-    }
-    const {payload} = buildCampaignPayload(pro, cfg);
-    payload.splitByCenter = false;
-    payload.approvalRequested = approval;
-    if(orderState.campaignName.trim()) payload.name = orderState.campaignName.trim();
-    // Le profil premium choisi pour une collecte de leads est transmis à titre
-    // d'information (le configurateur classique ne l'envoyait pas pour les leads).
-    if(orderState.mechanic==='leads' && activePresetLabel(pro)!=='Tous profils') payload.targeting = JSON.parse(JSON.stringify(orderState.targeting));
-    if(orderState.mechanic==='location') payload.targeting = Object.assign(payload.targeting || {}, {usages: [...orderState.contactUsages]});
-    const createdRows = await apiFetch('/campaigns', {method:'POST', body: JSON.stringify(payload)});
-    createdRows.forEach(row => CAMPAIGNS.unshift(mapApiCampaign(row, currentPro())));
-    orderState.lastResult = {
-      ids: createdRows.map(r=>r.id),
-      total: createdRows.reduce((s,r)=>s+Number(r.budget||0),0),
-      approval: createdRows.some(r=>r.status==='a_valider'),
-    };
-    orderState.flowScreen = 'done';
-    renderOrder(); window.scrollTo(0,0);
-  }catch(err){
-    showToast(`⚠️ La commande n'a pas pu être enregistrée (${err.message}).`);
-    if(btn){ btn.classList.remove('loading'); btn.disabled = false; btn.innerHTML = label; }
-  }
-}
-
-/* ---- Validation d'une commande en attente (module « validation par un directeur ») ---- */
-async function approveCampaign(id){
-  const c = findCampaign(id);
-  if(!c) return;
-  try{
-    await apiFetch(`/campaigns/${id}/approve`, {method:'PATCH'});
-    c.status = 'file_attente';
-    closeModal('campaign-overlay');
-    renderCampaigns();
-    showToast(`« ${campaignTitle(c)} » est validée et part chez notre équipe.`);
-  }catch(err){
-    showToast(`⚠️ Validation non enregistrée (${err.message}).`);
-  }
-}
-
-/* =========================================================
    MES CAMPAGNES
    ========================================================= */
 let campaignSegment = 'toutes';
@@ -4875,7 +4062,6 @@ function renderCampaigns(){
   const countFor = s => all.filter(c=>c.status===s).length;
   const segments = [
     {key:'toutes', label:'Toutes', count:all.length},
-    ...(countFor('a_valider')>0 ? [{key:'a_valider', label:'À valider', count:countFor('a_valider')}] : []),
     {key:'en_cours', label:'En cours', count:countFor('en_cours')},
     {key:'file_attente', label:'En attente', count:countFor('file_attente')},
     {key:'terminee', label:'Terminées', count:countFor('terminee')},
@@ -4906,7 +4092,7 @@ function setCampaignSegment(key){ campaignSegment = key; renderCampaigns(); }
    ========================================================= */
 function renderBilling(){
   const pro = proObj();
-  const rows = myCampaigns().filter(c=>c.status!=='annulee' && c.status!=='a_valider' && c.invoiceDate).sort((a,b)=>b.invoiceDate.localeCompare(a.invoiceDate));
+  const rows = myCampaigns().filter(c=>c.status!=='annulee' && c.invoiceDate).sort((a,b)=>b.invoiceDate.localeCompare(a.invoiceDate));
   const totalDue = rows.filter(c=>c.paymentStatus==='en_attente').reduce((s,c)=>s+campaignCost(c),0);
   const totalPaid = rows.filter(c=>c.paymentStatus==='paye').reduce((s,c)=>s+campaignCost(c),0);
   const bi = pro.billingInfo;
@@ -5285,18 +4471,8 @@ function openCampaignDetail(id){
     <div class="progress-label" style="margin-bottom:6px;"><span>${c.generated} ${unitLabel} reçus</span><span>${pct}% de l'objectif</span></div>
     <div class="summary-note" style="color:var(--muted); margin-top:14px;">${mech==='leads' ? 'Le détail par statut (contactés, RDV pris, honorés) sera disponible ici une fois les leads de cette campagne connectés à votre suivi habituel dans « Mes leads ».' : 'Le suivi détaillé de la diffusion sera disponible ici une fois cette mécanique connectée à une base de données réelle.'}</div>
     ` : ''}
-    ${c.status==='a_valider' ? `
-    <div class="crm-note" style="margin-top:18px;">Cette commande attend votre validation avant de partir chez notre équipe.</div>
-    <button class="mini-btn primary-amber" style="width:100%; margin-top:10px;" onclick="approveCampaign('${c.id}')">Valider la commande</button>
-    ` : ''}
-    ${(c.status==='file_attente' || c.status==='a_valider') ? `
-    <button class="mini-btn secondary danger-outline" style="width:100%; margin-top:10px;" onclick="cancelCampaign('${c.id}')">Déprogrammer cette campagne</button>
-    ` : ''}
-    ${(c.status!=='a_valider' && MECHANIC_OBJECTIVE[c.mechanic||'leads']) ? `
-    <div style="display:flex; gap:8px; margin-top:10px;">
-      <button class="mini-btn secondary" style="flex:1;" onclick="relaunchCampaign('${c.id}', true)">Modifier et relancer</button>
-      <button class="mini-btn" style="flex:1;" onclick="relaunchCampaign('${c.id}', false)">Relancer à l'identique</button>
-    </div>
+    ${c.status==='file_attente' ? `
+    <button class="mini-btn secondary danger-outline" style="width:100%; margin-top:18px;" onclick="cancelCampaign('${c.id}')">Déprogrammer cette campagne</button>
     ` : ''}
   `;
   document.getElementById('campaign-overlay').classList.add('show');
@@ -5651,7 +4827,6 @@ async function attemptLogin(event){
       modules: acc.modules, activationEnabled: acc.activationEnabled,
       pricing: acc.pricing, billingInfo: acc.billingInfo, targetingCatalog: acc.targetingCatalog,
       ctaBanner: acc.ctaBanner, dashboardMetrics: acc.dashboardMetrics,
-      orderSettings: acc.orderSettings || null,
     });
     await loadActivationPlatforms();
     await loadBroadcastsForAccount();
@@ -5777,7 +4952,6 @@ const MODULE_LABELS = {
   smsSelfService:'Envoi SMS self-service', email:'Envoi Email (commande manuelle)',
   vehicleTargeting:'Ciblage véhicule (segments suggérés, intention, gamme)',
   keywordTargeting:'Recherche de ciblage par mot-clé (partenaire data)',
-  orderApproval:'Validation des commandes par un directeur',
 };
 let catalogEditorOpenFor = null;
 let statsEditorOpenFor = null;
@@ -5877,134 +5051,6 @@ async function resetCtaBanner(proId){
     showToast(`⚠️ Réinitialisation non enregistrée côté serveur (${err.message}).`);
   }
 }
-/* ---- Admin : réglages du parcours de commande (par compte) ---- */
-let orderSettingsEditorOpenFor = null;
-function toggleOrderSettingsEditor(proId){
-  orderSettingsEditorOpenFor = (orderSettingsEditorOpenFor===proId) ? null : proId;
-  renderAdminAccountList();
-}
-const OBJECTIVE_ADMIN_LABELS = {prospects:'Prospects (génération de leads)', trafic:'Trafic en point de vente (notoriété)', contacts:'Location de contacts'};
-function renderOrderSettingsEditor(proId){
-  const p = PROS.find(x=>x.id===proId);
-  const st = orderFlowSettings(p);
-  const id = f => `os-${proId}-${f}`;
-  const cardBlock = k => {
-    const c = st.cards[k];
-    const off = !p.modules[OBJECTIVE_MECHANIC[k]];
-    return `
-      <div class="admin-segment-form" style="margin-top:10px;">
-        <div class="admin-account-name" style="margin-bottom:8px;">Carte « ${OBJECTIVE_ADMIN_LABELS[k]} »${off ? ' <span class="admin-account-sub">— mécanique désactivée pour ce compte, carte masquée</span>' : ''}</div>
-        <label class="field-label" for="${id(k+'-tag')}">Étiquette (vide = pas d'étiquette)</label>
-        <input class="field-input" id="${id(k+'-tag')}" type="text" value="${ofEsc(c.tag)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-title')}">Titre</label>
-        <input class="field-input" id="${id(k+'-title')}" type="text" value="${ofEsc(c.title)}">
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-subtitle')}">Sous-titre</label>
-        <textarea id="${id(k+'-subtitle')}" style="min-height:56px;">${ofEsc(c.subtitle)}</textarea>
-        <label class="field-label" style="margin-top:8px;" for="${id(k+'-checks')}">Atouts affichés avec une coche — un par ligne (3 conseillés)</label>
-        <textarea id="${id(k+'-checks')}" style="min-height:70px;">${ofEsc(c.checks.join('\n'))}</textarea>
-      </div>`;
-  };
-  const formuleBlock = k => {
-    const f = st.formules[k];
-    return `
-      <div class="admin-segment-form" style="margin-top:10px;">
-        <div class="admin-account-name" style="margin-bottom:8px;">${k==='collecte' ? 'Option « collecte seule »' : 'Option « collecte + requalification »'}</div>
-        <label class="field-label" for="${id('f-'+k+'-title')}">Titre</label>
-        <input class="field-input" id="${id('f-'+k+'-title')}" type="text" value="${ofEsc(f.title)}">
-        <label class="field-label" style="margin-top:8px;" for="${id('f-'+k+'-desc')}">Description</label>
-        <textarea id="${id('f-'+k+'-desc')}" style="min-height:50px;">${ofEsc(f.desc)}</textarea>
-        <label class="field-label" style="margin-top:8px;" for="${id('f-'+k+'-checks')}">Atouts — un par ligne</label>
-        <textarea id="${id('f-'+k+'-checks')}" style="min-height:56px;">${ofEsc(f.checks.join('\n'))}</textarea>
-      </div>`;
-  };
-  const stepsBlock = k => `
-      <label class="field-label" style="margin-top:10px;" for="${id('s-'+k)}">${OBJECTIVE_ADMIN_LABELS[k]} — une étape par ligne, au format « Titre | description »</label>
-      <textarea id="${id('s-'+k)}" style="min-height:90px;">${ofEsc(st.nextSteps[k].map(s=>s.desc ? `${s.title} | ${s.desc}` : s.title).join('\n'))}</textarea>`;
-  return `
-    <div class="admin-account-sub" style="margin-bottom:10px;">Page « Commander une campagne » de ce compte. Les changements s'appliquent à la prochaine connexion du client.</div>
-    <label class="field-label" for="${id('flow')}">Version du parcours</label>
-    <select class="field-input" id="${id('flow')}">
-      <option value="objectif" ${st.flow==='objectif'?'selected':''}>Parcours par objectif (nouveau)</option>
-      <option value="classique" ${st.flow==='classique'?'selected':''}>Configurateur en étapes (ancienne version)</option>
-    </select>
-    <label class="field-label" style="margin-top:10px;" for="${id('title')}">Titre de la page</label>
-    <input class="field-input" id="${id('title')}" type="text" value="${ofEsc(st.pageTitle)}">
-    <div class="admin-modules-grid" style="margin-top:12px;">
-      <label class="admin-toggle-label">Raccourci « Relancer ma dernière campagne »
-        <input type="checkbox" id="${id('relaunch')}" ${st.showRelaunch?'checked':''}>
-      </label>
-      <label class="admin-toggle-label">Code de confirmation avant validation
-        <input type="checkbox" id="${id('code')}" ${st.requireCode?'checked':''}>
-      </label>
-    </div>
-    <label class="field-label" style="margin-top:10px;" for="${id('formule')}">Option présélectionnée pour les prospects</label>
-    <select class="field-input" id="${id('formule')}">
-      <option value="collecte" ${st.defaultFormule==='collecte'?'selected':''}>Leads directs (collecte seule)</option>
-      <option value="requalif" ${st.defaultFormule==='requalif'?'selected':''}>Leads qualifiés par téléphone</option>
-    </select>
-    <div class="section-label">Cartes objectif</div>
-    ${OBJECTIVE_KEYS.map(cardBlock).join('')}
-    <div class="section-label">Options de réception des prospects</div>
-    ${formuleBlock('collecte')}
-    ${formuleBlock('requalif')}
-    <div class="section-label">« Ce qui se passe ensuite » (page de validation)</div>
-    ${OBJECTIVE_KEYS.map(stepsBlock).join('')}
-    <div style="margin-top:14px;">
-      <button class="mini-btn primary-amber" onclick="saveOrderSettings('${proId}')">Enregistrer</button>
-      ${p.orderSettings ? `<button class="mini-btn secondary" style="margin-left:8px;" onclick="resetOrderSettings('${proId}')">Réinitialiser aux réglages par défaut</button>` : ''}
-    </div>`;
-}
-async function saveOrderSettings(proId){
-  const p = PROS.find(x=>x.id===proId);
-  const val = f => { const el = document.getElementById(`os-${proId}-${f}`); return el ? el.value.trim() : ''; };
-  const lines = f => val(f).split('\n').map(s=>s.trim()).filter(Boolean);
-  const cards = {};
-  OBJECTIVE_KEYS.forEach(k=>{
-    const title = val(k+'-title');
-    if(!title){ return; }
-    cards[k] = {tag: val(k+'-tag'), title, subtitle: val(k+'-subtitle'), checks: lines(k+'-checks')};
-  });
-  const formules = {};
-  ['collecte','requalif'].forEach(k=>{
-    formules[k] = {title: val('f-'+k+'-title'), desc: val('f-'+k+'-desc'), checks: lines('f-'+k+'-checks')};
-  });
-  const nextSteps = {};
-  OBJECTIVE_KEYS.forEach(k=>{
-    nextSteps[k] = lines('s-'+k).map(l=>{
-      const i = l.indexOf('|');
-      return i>-1 ? {title:l.slice(0,i).trim(), desc:l.slice(i+1).trim()} : {title:l, desc:''};
-    }).filter(s=>s.title);
-  });
-  const orderSettings = {
-    flow: val('flow')==='classique' ? 'classique' : 'objectif',
-    pageTitle: val('title'),
-    showRelaunch: document.getElementById(`os-${proId}-relaunch`).checked,
-    requireCode: document.getElementById(`os-${proId}-code`).checked,
-    defaultFormule: val('formule')==='requalif' ? 'requalif' : 'collecte',
-    cards, formules, nextSteps,
-  };
-  p.orderSettings = orderSettings;
-  renderAdminAccountList();
-  try{
-    await apiFetch(`/admin/accounts/${proId}/order-settings`, {method:'PATCH', body: JSON.stringify({orderSettings})});
-    showToast('Parcours de commande mis à jour.');
-  }catch(err){
-    showToast(`⚠️ Réglages non enregistrés côté serveur (${err.message}).`);
-  }
-}
-async function resetOrderSettings(proId){
-  const p = PROS.find(x=>x.id===proId);
-  if(!confirm('Revenir aux réglages par défaut du parcours de commande pour ce compte ?')) return;
-  p.orderSettings = null;
-  renderAdminAccountList();
-  try{
-    await apiFetch(`/admin/accounts/${proId}/order-settings`, {method:'PATCH', body: JSON.stringify({orderSettings:null})});
-    showToast('Parcours de commande réinitialisé.');
-  }catch(err){
-    showToast(`⚠️ Réinitialisation non enregistrée côté serveur (${err.message}).`);
-  }
-}
-
 function renderAccountActivationEditor(proId){
   const p = PROS.find(x=>x.id===proId);
   p.activationEnabled = p.activationEnabled || {};
@@ -6089,10 +5135,6 @@ function renderAdminAccountList(){
         <button class="toggle-link" onclick="toggleCtaEditor('${p.id}')" style="margin-top:6px;">${ctaEditorOpenFor===p.id?'Masquer':'Gérer'} l'encart de mise en avant</button>
         <div id="cta-editor-${p.id}" style="display:${ctaEditorOpenFor===p.id?'block':'none'}; margin-top:12px;">
           ${ctaEditorOpenFor===p.id ? renderCtaBannerEditor(p.id) : ''}
-        </div>
-        <button class="toggle-link" onclick="toggleOrderSettingsEditor('${p.id}')" style="margin-top:6px;">${orderSettingsEditorOpenFor===p.id?'Masquer':'Gérer'} le parcours de commande (${orderFlowSettings(p).flow==='objectif'?'par objectif':'ancienne version'}${p.orderSettings?', personnalisé':''})</button>
-        <div id="order-settings-editor-${p.id}" style="display:${orderSettingsEditorOpenFor===p.id?'block':'none'}; margin-top:12px;">
-          ${orderSettingsEditorOpenFor===p.id ? renderOrderSettingsEditor(p.id) : ''}
         </div>
       </div>` : ''}
     </div>`;

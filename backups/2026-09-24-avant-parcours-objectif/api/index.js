@@ -47,7 +47,7 @@ var require_auth = __commonJS({
           `SELECT u.id, u.email, u.password_hash, u.role, u.account_id,
               a.name AS account_name, a.brand_label, a.portal_name,
               a.modules, a.activation_enabled, a.pricing, a.billing_info, a.targeting_catalog,
-              a.cta_banner, a.dashboard_metrics, to_jsonb(a) -> 'order_settings' AS order_settings
+              a.cta_banner, a.dashboard_metrics
        FROM users u
        LEFT JOIN accounts a ON a.id = u.account_id
        WHERE lower(u.email) = lower($1)`,
@@ -80,8 +80,7 @@ var require_auth = __commonJS({
             billingInfo: user.billing_info,
             targetingCatalog: user.targeting_catalog,
             ctaBanner: user.cta_banner,
-            dashboardMetrics: user.dashboard_metrics,
-            orderSettings: user.order_settings || null
+            dashboardMetrics: user.dashboard_metrics
           } : null
         });
       } catch (err) {
@@ -419,7 +418,7 @@ var require_campaigns = __commonJS({
       const client = await pool.connect();
       try {
         const accountResult = await client.query(
-          `SELECT id, pricing, modules, activation_enabled AS "activationEnabled", targeting_catalog AS "targetingCatalog"
+          `SELECT id, pricing, activation_enabled AS "activationEnabled", targeting_catalog AS "targetingCatalog"
        FROM accounts WHERE id = $1`,
           [req.user.accountId]
         );
@@ -432,7 +431,6 @@ var require_campaigns = __commonJS({
         if (ownedCenters.rows.length !== centerIds.length) {
           return res.status(403).json({ error: "Une ou plusieurs concessions ne correspondent pas \xE0 votre compte." });
         }
-        const status = body.approvalRequested && account.modules && account.modules.orderApproval ? "a_valider" : "file_attente";
         await client.query("BEGIN");
         const created = [];
         async function insertCampaign(orderPayload, forCenterIds) {
@@ -444,7 +442,7 @@ var require_campaigns = __commonJS({
           await client.query(
             `INSERT INTO campaigns (id, account_id, name, mechanic, type, mode, target_leads, budget, generated, status,
                                  start_date, targeting, sms_schedule, email_order, activation_order, invoice_date)
-         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,0,$14,$9,$10,$11,$12,$13,CURRENT_DATE)`,
+         VALUES ($1,$2,$3,$4,$5,$6,$7,$8,0,'file_attente',$9,$10,$11,$12,$13,CURRENT_DATE)`,
             [
               id,
               req.user.accountId,
@@ -458,8 +456,7 @@ var require_campaigns = __commonJS({
               targeting ? JSON.stringify(targeting) : null,
               smsSchedule ? JSON.stringify(smsSchedule) : null,
               emailOrder ? JSON.stringify(emailOrder) : null,
-              activationOrder ? JSON.stringify(activationOrder) : null,
-              status
+              activationOrder ? JSON.stringify(activationOrder) : null
             ]
           );
           for (const centerId of forCenterIds) {
@@ -475,18 +472,7 @@ var require_campaigns = __commonJS({
           }
         } else {
           await insertCampaign(
-            {
-              name: typeof body.name === "string" ? body.name.trim().slice(0, 120) || null : null,
-              mechanic,
-              type,
-              mode,
-              targetLeads: body.targetLeads,
-              budgetVal: body.budgetVal,
-              targeting,
-              notorieteChannels: body.notorieteChannels,
-              activation: body.activation,
-              email: emailOrder
-            },
+            { mechanic, type, mode, targetLeads: body.targetLeads, budgetVal: body.budgetVal, targeting, notorieteChannels: body.notorieteChannels, activation: body.activation, email: emailOrder },
             centerIds
           );
         }
@@ -504,19 +490,6 @@ var require_campaigns = __commonJS({
         res.status(err.message && err.message.startsWith("Type de campagne") ? 400 : 500).json({ error: err.message || "Erreur serveur." });
       } finally {
         client.release();
-      }
-    });
-    router.patch("/:id/approve", async (req, res) => {
-      try {
-        const result = await pool.query(
-          `UPDATE campaigns SET status = 'file_attente' WHERE id = $1 AND account_id = $2 AND status = 'a_valider' RETURNING id`,
-          [req.params.id, req.user.accountId]
-        );
-        if (!result.rows.length) return res.status(404).json({ error: "Campagne introuvable ou d\xE9j\xE0 valid\xE9e." });
-        res.json({ ok: true });
-      } catch (err) {
-        console.error("Erreur PATCH /campaigns/:id/approve :", err);
-        res.status(500).json({ error: "Erreur serveur." });
       }
     });
     router.patch("/:id/cancel", async (req, res) => {
@@ -931,7 +904,6 @@ var require_admin = __commonJS({
         targetingCatalog: row.targeting_catalog,
         ctaBanner: row.cta_banner,
         dashboardMetrics: row.dashboard_metrics,
-        orderSettings: row.order_settings || null,
         centers: centers.map((c) => ({ id: c.id, name: c.name, city: c.city, address: c.address, cp: c.cp, radiusKm: Number(c.radius_km) }))
       };
     }
@@ -997,8 +969,8 @@ var require_admin = __commonJS({
         );
         const newId = idRow.rows[0].next_id;
         await client.query(
-          `INSERT INTO accounts (id, name, brand_label, portal_name, modules, activation_enabled, targeting_catalog, pricing, billing_info, cta_banner, dashboard_metrics, order_settings)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
+          `INSERT INTO accounts (id, name, brand_label, portal_name, modules, activation_enabled, targeting_catalog, pricing, billing_info, cta_banner, dashboard_metrics)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
           [
             newId,
             source.name + " (copie)",
@@ -1010,8 +982,7 @@ var require_admin = __commonJS({
             JSON.stringify(source.pricing),
             source.billingInfo ? JSON.stringify(source.billingInfo) : null,
             source.ctaBanner ? JSON.stringify(source.ctaBanner) : null,
-            source.dashboardMetrics ? JSON.stringify(source.dashboardMetrics) : null,
-            source.orderSettings ? JSON.stringify(source.orderSettings) : null
+            source.dashboardMetrics ? JSON.stringify(source.dashboardMetrics) : null
           ]
         );
         let i = 1;
@@ -1124,23 +1095,6 @@ var require_admin = __commonJS({
         res.json({ ok: true });
       } catch (err) {
         console.error("Erreur PATCH dashboard-metrics :", err);
-        res.status(500).json({ error: "Erreur serveur." });
-      }
-    });
-    router.patch("/accounts/:id/order-settings", async (req, res) => {
-      const { orderSettings } = req.body || {};
-      if (orderSettings !== null && (typeof orderSettings !== "object" || Array.isArray(orderSettings))) {
-        return res.status(400).json({ error: "R\xE9glages invalides." });
-      }
-      try {
-        const result = await pool.query(
-          `UPDATE accounts SET order_settings = $1 WHERE id = $2 RETURNING id`,
-          [orderSettings ? JSON.stringify(orderSettings) : null, req.params.id]
-        );
-        if (!result.rows.length) return res.status(404).json({ error: "Compte introuvable." });
-        res.json({ ok: true });
-      } catch (err) {
-        console.error("Erreur PATCH order-settings :", err);
         res.status(500).json({ error: "Erreur serveur." });
       }
     });
@@ -1602,24 +1556,6 @@ var require_webhooksSpotHit = __commonJS({
   }
 });
 
-// src/db/ensureSchema.js
-var require_ensureSchema = __commonJS({
-  "src/db/ensureSchema.js"(exports2, module2) {
-    var pool = require_pool();
-    var done = null;
-    function ensureSchema2() {
-      if (!done) {
-        done = pool.query("ALTER TABLE accounts ADD COLUMN IF NOT EXISTS order_settings JSONB").catch((err) => {
-          console.error("ensureSchema : colonne accounts.order_settings non cr\xE9\xE9e \u2014", err.message);
-          done = null;
-        });
-      }
-      return done;
-    }
-    module2.exports = { ensureSchema: ensureSchema2 };
-  }
-});
-
 // api/index.js
 require("dotenv").config();
 var express = require("express");
@@ -1632,13 +1568,9 @@ var audienceRoutes = require_audience();
 var adminRoutes = require_admin();
 var activationPlatformsRoutes = require_activationPlatforms();
 var webhooksSpotHitRoutes = require_webhooksSpotHit();
-var { ensureSchema } = require_ensureSchema();
 var app = express();
 app.use(cors(process.env.ALLOWED_ORIGIN ? { origin: process.env.ALLOWED_ORIGIN.split(",").map((s) => s.trim()) } : {}));
 app.use(express.json({ limit: "8mb" }));
-app.use((req, res, next) => {
-  ensureSchema().then(() => next(), () => next());
-});
 app.get("/api/health", (req, res) => res.json({ ok: true }));
 app.use("/api/auth", authRoutes);
 app.use("/api/leads", leadsRoutes);
