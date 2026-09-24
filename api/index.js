@@ -964,7 +964,7 @@ var require_admin = __commonJS({
           `SELECT 'p' || (COALESCE(MAX(NULLIF(regexp_replace(id, '\\D', '', 'g'), '')::int), 3) + 1) AS next_id FROM accounts WHERE id ~ '^p[0-9]+$'`
         );
         const id = idRow.rows[0].next_id;
-        const defaultModules = { leads: true, location: true, notoriete: true, smsSelfService: false, email: false, vehicleTargeting: true, keywordTargeting: false };
+        const defaultModules = { leads: true, location: true, notoriete: true, smsSelfService: false, email: false, vehicleTargeting: true, keywordTargeting: false, demoMode: false };
         await client.query(
           `INSERT INTO accounts (id, name, brand_label, portal_name, modules, activation_enabled, targeting_catalog, pricing)
        VALUES ($1,$2,$3,$4,$5,'{}','[]','{}')`,

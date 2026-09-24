@@ -223,6 +223,18 @@ p{margin:0;}
   background:var(--amber-soft); color:var(--amber-deep); padding:2px 8px; border-radius:20px; margin-right:8px;
 }
 .demo-banner .txt{color:var(--muted);}
+.title-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+.demo-pill-wrap{position:relative;}
+.demo-pill{display:inline-flex; align-items:center; gap:7px; font-size:12.5px; font-weight:700; color:var(--amber-deep); background:var(--amber-soft); border:1px solid transparent; padding:5px 10px 5px 11px; border-radius:999px; line-height:1;}
+.demo-pill:hover, .demo-pill[aria-expanded="true"]{border-color:var(--amber);}
+.demo-pill-dot{width:7px; height:7px; border-radius:50%; background:var(--amber);}
+.demo-pop{display:none; position:absolute; left:0; top:calc(100% + 8px); z-index:60; width:300px; background:var(--paper-raised); border:1px solid var(--line); border-radius:14px; padding:14px 16px 16px; box-shadow:0 14px 36px -10px rgba(20,23,26,.28);}
+.demo-pop.open{display:flex; flex-direction:column; gap:8px;}
+.demo-pop-t{font-size:14px; font-weight:700; color:var(--ink);}
+.demo-pop-d{font-size:13px; color:var(--muted); line-height:1.5;}
+.demo-pop-btn{margin-top:4px; display:inline-flex; align-items:center; justify-content:center; gap:7px; min-height:40px; border-radius:10px; background:var(--ink); color:#fff; font-size:13.5px; font-weight:700;}
+.demo-pop-btn:hover{background:var(--ink-soft);}
+@media (max-width:600px){.demo-pop{width:min(300px, calc(100vw - 32px));}}
 .demo-btn{
   font-size:12px; color:var(--ink-soft); background:var(--paper); border:1px solid var(--line);
   padding:5px 10px; border-radius:8px; display:flex; align-items:center; gap:6px; font-weight:600; flex-shrink:0;
@@ -1213,6 +1225,13 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
 .of-hl{color:inherit; padding:0 2px; background:linear-gradient(transparent 58%, var(--hl, #F3D9CC) 58%, var(--hl, #F3D9CC) 92%, transparent 92%); -webkit-box-decoration-break:clone; box-decoration-break:clone;}
 .of-cards .of-card.c-prospects{--hl:#FBCFB8;} .of-cards .of-card.c-trafic{--hl:#C3DBF3;} .of-cards .of-card.c-contacts{--hl:#DACEF5;}
 .of-card-bg{height:150px;}
+/* v5 : lisibilité + relance sous les cartes */
+.of-cards .of-card-sub{font-size:15px;}
+.of-cards .of-check{font-size:15px;}
+.of-cards .of-card.c-trafic{--hl:#A9CBEE;}
+.of-relaunch.below{background:transparent; border:1px dashed #D6D3CC; box-shadow:none; margin-top:2px;}
+.of-relaunch.below .of-relaunch-title{font-size:14.5px;}
+.of-relaunch-or{font-weight:500; color:var(--muted);}
 </style>
 </head>
 <body>
@@ -1405,18 +1424,26 @@ code{font-family:var(--font-mono); background:var(--paper); padding:2px 6px; bor
       <div class="main-header-left">
         <div class="page-icon-badge" id="page-icon"></div>
         <div>
-          <h2 id="page-title">Vue d'ensemble</h2>
+          <div class="title-row">
+            <h2 id="page-title">Vue d'ensemble</h2>
+            <div class="demo-pill-wrap" id="demo-pill-wrap" style="display:none;">
+              <button type="button" class="demo-pill" id="demo-pill" aria-expanded="false" aria-controls="demo-pop" onclick="toggleDemoPop(event)">
+                <span class="demo-pill-dot"></span>Mode démo
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+              </button>
+              <div class="demo-pop" id="demo-pop" role="dialog" aria-label="Mode démo">
+                <div class="demo-pop-t">Données fictives</div>
+                <div class="demo-pop-d">Les leads, campagnes et chiffres affichés sont des exemples. Le portail se connectera aux vraies campagnes et à votre CRM une fois en production.</div>
+                <button type="button" class="demo-pop-btn" onclick="closeDemoPop(); simulateNewLead();">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+                  Simuler un nouveau lead
+                </button>
+              </div>
+            </div>
+          </div>
           <div class="subtitle" id="page-subtitle"></div>
         </div>
       </div>
-    </div>
-
-    <div class="demo-banner">
-      <span><span class="tag">Mode démo</span><span class="txt">Données fictives — le portail se connectera aux vraies campagnes et à votre CRM une fois en production.</span></span>
-      <button class="demo-btn" onclick="simulateNewLead()">
-        <svg class="icon" style="width:14px;height:14px;stroke:currentColor;" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
-        Simuler un nouveau lead
-      </button>
     </div>
 
     <!-- ===== TAB: VUE D'ENSEMBLE ===== -->
@@ -2118,6 +2145,8 @@ function renderAll(){
     document.getElementById('page-title').innerText = titles[activeTab];
     document.getElementById('page-subtitle').innerText = `${pro.name} · ${pro.centers.length} concession${pro.centers.length>1?'s':''}`;
   }
+  document.getElementById('demo-pill-wrap').style.display = moduleOn(pro,'demoMode') ? '' : 'none';
+  closeDemoPop();
   if(activeTab==='dashboard') renderDashboard();
   if(activeTab==='leads') renderLeadsTab();
   if(activeTab==='rdv') renderAgenda();
@@ -4643,10 +4672,10 @@ function ofStartHtml(pro, objectives){
     const unit = campaignUnitLabel(last, target);
     const progress = (last.status==='en_cours' || last.status==='terminee') && target ? ` · ${ofFmt(last.generated)} ${last.mechanic==='notoriete'?'touchés':'livrés'} sur ${ofFmt(target)}` : '';
     relaunch = `
-      <div class="of-relaunch">
+      <div class="of-relaunch below">
         <div class="of-relaunch-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 0 1 14-5.3L20 9"/><path d="M20 4v5h-5"/><path d="M20 12a8 8 0 0 1-14 5.3L4 15"/><path d="M4 20v-5h5"/></svg></div>
         <div class="of-relaunch-text">
-          <span class="of-relaunch-title">Relancer ma dernière campagne</span>
+          <span class="of-relaunch-title"><span class="of-relaunch-or">Ou </span>relancez votre dernière campagne</span>
           <span class="of-relaunch-sub">${ofEsc(last.id)} · ${campaignTitleHtml(last)} · ${ofFmt(target)} ${ofEsc(unit)} · ${ofEsc(centerNamesList(last.centerIds))} · ${ofFmt(campaignCost(last))} €${progress}</span>
         </div>
         <button type="button" class="of-link" onclick="relaunchCampaign('${last.id}', true)">Modifier</button>
@@ -4670,9 +4699,9 @@ function ofStartHtml(pro, objectives){
   }).join('');
   return `
     ${ofStepsHtml(1)}
-    ${relaunch}
     <div class="of-q"><h2 class="of-h">${ofEsc(st.pageTitle).replace(/ ([?!:;])/g,'\u00a0$1')}</h2>${st.pageHelp ? `<p>${ofEsc(st.pageHelp)}</p>` : ''}</div>
-    ${objectives.length ? `<div class="of-cards n${Math.min(objectives.length,3)}">${cards}</div>` : `<div class="empty-inline">Aucune mécanique n'est activée pour votre compte. Contactez l'équipe AutoLead.</div>`}`;
+    ${objectives.length ? `<div class="of-cards n${Math.min(objectives.length,3)}">${cards}</div>` : `<div class="empty-inline">Aucune mécanique n'est activée pour votre compte. Contactez l'équipe AutoLead.</div>`}
+    ${relaunch}`;
 }
 
 function ofSectionCenters(pro, question){
@@ -5672,6 +5701,19 @@ function saveCenter(id, btn){
 /* =========================================================
    SIMULATION "nouveau lead"
    ========================================================= */
+function toggleDemoPop(e){
+  if(e) e.stopPropagation();
+  const pop = document.getElementById('demo-pop'), btn = document.getElementById('demo-pill');
+  const open = !pop.classList.contains('open');
+  pop.classList.toggle('open', open);
+  btn.setAttribute('aria-expanded', open);
+}
+function closeDemoPop(){
+  const pop = document.getElementById('demo-pop'), btn = document.getElementById('demo-pill');
+  if(pop){ pop.classList.remove('open'); btn.setAttribute('aria-expanded','false'); }
+}
+document.addEventListener('click', e=>{ const w = document.getElementById('demo-pill-wrap'); if(w && !w.contains(e.target)) closeDemoPop(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeDemoPop(); });
 function simulateNewLead(){
   const names = ['Louis Fontanel','Denise Aubert','Marcel Guiraud','Odette Cassan','Henri Bousquet'];
   const genes = ['Envie de changer de véhicule','Estimation de reprise','Essai d’un modèle électrique','Financement / LOA'];
@@ -5902,7 +5944,11 @@ const MODULE_LABELS = {
   vehicleTargeting:'Ciblage véhicule (segments suggérés, intention, gamme)',
   keywordTargeting:'Recherche de ciblage par mot-clé (partenaire data)',
   orderApproval:'Validation des commandes par un directeur',
+  demoMode:'Pastille « Mode démo » (données fictives + simulation de lead)',
 };
+// Modules dont la valeur par défaut est « activé » quand le compte n'a encore rien enregistré
+const MODULE_DEFAULTS = {demoMode:true};
+function moduleOn(p, k){ const v = p && p.modules ? p.modules[k] : undefined; return v===undefined ? !!MODULE_DEFAULTS[k] : !!v; }
 let catalogEditorOpenFor = null;
 let statsEditorOpenFor = null;
 function toggleStatsEditor(proId){
@@ -6192,7 +6238,7 @@ function renderAdminAccountList(){
           ${Object.keys(MODULE_LABELS).map(mk=>`
             <label class="admin-toggle-label">
               ${MODULE_LABELS[mk]}
-              <button type="button" class="admin-toggle ${p.modules[mk]?'on':''}" onclick="toggleModule('${p.id}','${mk}', this)"><span class="knob"></span></button>
+              <button type="button" class="admin-toggle ${moduleOn(p,mk)?'on':''}" onclick="toggleModule('${p.id}','${mk}', this)"><span class="knob"></span></button>
             </label>`).join('')}
         </div>
         <button class="toggle-link" onclick="toggleCatalogEditor('${p.id}')" style="margin-top:10px;">${catalogEditorOpenFor===p.id?'Masquer':'Gérer'} le catalogue de ciblage (${p.targetingCatalog.length || 'générique'})</button>
@@ -6237,7 +6283,7 @@ function savePortalName(proId, value){
 }
 function toggleModule(proId, moduleKey, btn){
   const p = PROS.find(x=>x.id===proId);
-  p.modules[moduleKey] = !p.modules[moduleKey];
+  p.modules[moduleKey] = !moduleOn(p, moduleKey);
   btn.classList.toggle('on', p.modules[moduleKey]);
   apiFetch(`/admin/accounts/${proId}/modules`, {method:'PATCH', body: JSON.stringify({moduleKey, value: p.modules[moduleKey]})})
     .catch(err => showToast(`⚠️ Module non enregistré côté serveur (${err.message}).`));
